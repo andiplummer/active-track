@@ -1,18 +1,31 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Navbar, HeroStats, Chart } from './index';
+import {getUserWorkouts} from '../store'
+import {withRouter, Route, Switch} from 'react-router-dom'
 
 /**
  * COMPONENT
  */
-export const UserHome = props => {
-  const {email} = props
+class UserHome extends React.Component {
+  // constructor(props) {
+  //   super(props)
+  // }
 
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
-  )
+  // componentDidMount() {
+  //   this.props.loadData(1);
+  // }
+
+  render() {
+    return (
+      <div className="user-home-container">
+        <Navbar />
+        <HeroStats />
+        <Chart />
+      </div>
+    );
+  }
 }
 
 /**
@@ -20,15 +33,19 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
-  }
-}
+    user: state.user,
+    workouts: state.workout.userWorkouts,
+  };
+};
 
-export default connect(mapState)(UserHome)
+// const mapDispatch = dispatch => {
+//   return {
+//     loadData(userId) {
+//       dispatch(getUserWorkouts(userId))
+//     }
+//   }
+// }
 
-/**
- * PROP TYPES
- */
-UserHome.propTypes = {
-  email: PropTypes.string
-}
+// export default withRouter(connect(mapState, mapDispatch)(UserHome))
+
+export default connect(mapState)(UserHome);

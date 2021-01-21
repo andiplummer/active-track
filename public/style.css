@@ -1,0 +1,255 @@
+* {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0px;
+  overflow-x: hidden
+}
+
+@font-face {
+  font-family: "mom-cake-bold";
+  src: url("./assets/MomcakeBold-WyonA.otf") format("opentype")
+}
+
+@font-face {
+  font-family: "mom-cake-thin";
+  src: url("./assets/MomcakeThin-9Y6aZ.otf") format("opentype")
+}
+
+@font-face {
+  font-family: "sofia-pro-regular";
+  src: url(./assets/Sofia-Pro-Regular.woff) format("woff")
+}
+
+body {
+  background-color: #FDF8F5;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.login-container input {
+  width: 200px;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.login-container button {
+  width: 200px;
+  height: 30px;
+  background-color: white;
+  border-radius: 7px;
+  border: 1px solid black;
+}
+
+.user-home-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 30px;
+  padding-right: 30px;
+  background-color: white;
+  width: 100%;
+  height: 75px;
+}
+
+.left-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.nav h1 {
+  color: #4F4846;
+  font-family: "mom-cake-bold";
+  font-size: 3em;
+  width: 200px;
+}
+
+.logout-container {
+  width: 90px;
+  height: 40px;
+  background-color: #266150;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.25em;
+  width: 75px;
+  text-align: center;
+  font-family: "mom-cake-thin";
+}
+
+.hero-stats {
+  width: 100%;
+  background-color: #E8CEBF;
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding-top: 30px;
+}
+
+.stat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+}
+
+.stat-container h2 {
+  font-family: "mom-cake-thin";
+  margin-bottom: 10px;
+}
+
+.stat-container h1 {
+  font-family: "mom-cake-bold";
+  font-size: 3em;
+}
+
+.hero-mile-count {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+}
+
+.vl {
+  border-left: 2px solid white;
+  height: 110px;
+  width: 5px;
+  margin-top: -10px;
+}
+
+#line-chart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 50px;
+  width: 100%;
+}
+
+#chart-1 {
+  padding-left: 75px;
+}
+
+.totals {
+  width: 300px;
+  padding-right: 25px;
+}
+
+.totals h1 {
+  font-family: "mom-cake-bold";
+  text-align: center;
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 400px) {
+  .nav h1 {
+    color: #4F4846;
+    font-family: "mom-cake-bold";
+    font-size: 1.75em;
+    width: 150px;
+  }
+  
+  .logout-container {
+    width: 90px;
+    height: 40px;
+    background-color: #266150;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    width: 75px;
+    text-align: center;
+    font-family: "mom-cake-thin";
+  }
+
+  .stat-container {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    padding: 10px;
+  }
+
+  .stat-container h2 {
+    font-family: "mom-cake-thin";
+    margin-bottom: 10px;
+    font-size: 1em;
+    text-align: center;
+  }
+
+  .stat-container h1 {
+    font-size: 2.25em;
+    text-align: center;
+  }
+
+  #line-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  #chart-1 {
+    width: 300px;
+    padding: 0px;
+  }
+  
+  .totals {
+    width: 300px;
+    margin-top: 40px;
+  }
+  
+  .totals h1 {
+    font-family: "mom-cake-bold";
+    text-align: center;
+  }
+}
+  
+  /* iPads (portrait) ----------- */
+/* @media only screen and (min-device-width : 768px) {
+  #line-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    width: 90%;
+    margin-left: 5%;
+  }
+  
+  #chart-1 {
+    padding-left: 75px;
+  }
+  
+  .totals {
+    width: 300px;
+    margin-top: 100px;
+  }
+  
+  .totals h1 {
+    font-family: "mom-cake-bold";
+    text-align: center;
+  }
+} */
