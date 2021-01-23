@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -11,22 +12,36 @@ const AuthForm = props => {
 
   return (
     <div className="login-container">
-      <h1>Family Fit</h1>
+      <div className="header">
+        <h1>Active</h1>
+        <h2>Track</h2>
+      </div>
       <form onSubmit={handleSubmit} name={name}>
+        {
+          props.name === 'signup' ? 
+          <div>
+            <input placeholder="first name" name="firstName" type="text" />
+          </div>
+        : null
+        }
+        {
+          props.name === 'signup' ? 
+          <div>
+            <input placeholder="last name" name="lastName" type="text" />
+          </div>
+        : null
+        }
         <div>
-          {/* <label htmlFor="email">
-            <small>Email</small>
-          </label> */}
           <input placeholder="email" name="email" type="text" />
         </div>
         <div>
-          {/* <label htmlFor="password">
-            <small>Password</small>
-          </label> */}
           <input placeholder="password" name="password" type="password" />
         </div>
         <div>
           <button type="submit">{displayName}</button>
+        </div>
+        <div>
+          {props.name === 'login' ? <p>Don't have an account yet? <Link to="/signup">Signup here.</Link></p> : <p>Already have an account? <Link to="/login">Login here</Link></p>}
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
@@ -64,7 +79,9 @@ const mapDispatch = dispatch => {
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      const firstName = evt.target.name === 'signup' ? evt.target.firstName.value : null
+      const lastName = evt.target.name === 'signup' ? evt.target.lastName.value : null
+      dispatch(auth(email, password, formName, firstName, lastName))
     }
   }
 }

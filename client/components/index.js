@@ -5,6 +5,7 @@
  */
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
-export {default as Chart} from './line-chart'
+export {default as Chart} from './perf-chart'
+export {default as ActivityLog} from './activity-log'
 export {Login, Signup} from './auth-form'
 export {default as HeroStats} from './hero-stats'

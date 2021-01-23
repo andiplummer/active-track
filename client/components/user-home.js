@@ -1,51 +1,49 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Navbar, HeroStats, Chart } from './index';
-import {getUserWorkouts} from '../store'
-import {withRouter, Route, Switch} from 'react-router-dom'
+import { getUserWorkouts, getAllUsers, getAllUserData } from '../store';
 
-/**
- * COMPONENT
- */
 class UserHome extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  // }
+  constructor(props) {
+    super(props)
+    this.state = {
+      isLoading: true
+    }
+  }
 
-  // componentDidMount() {
-  //   this.props.loadData(1);
-  // }
+  async componentDidMount() {
+    await this.props.loadInitialData(this.props.user.id);
+    this.setState({ isLoading: false })
+  }
 
   render() {
     return (
       <div className="user-home-container">
         <Navbar />
-        <HeroStats />
-        <Chart />
+        <HeroStats userWorkouts={this.props.workouts} />
+        {this.state.isLoading === false ? <Chart /> : null}
       </div>
     );
   }
 }
 
-/**
- * CONTAINER
- */
 const mapState = state => {
   return {
     user: state.user,
-    workouts: state.workout.userWorkouts,
+    allUsers: state.data.allUsers,
+    workouts: state.data.userWorkouts,
+    allUserData: state.data.allUserData
   };
 };
 
-// const mapDispatch = dispatch => {
-//   return {
-//     loadData(userId) {
-//       dispatch(getUserWorkouts(userId))
-//     }
-//   }
-// }
+const mapDispatch = dispatch => {
+  return {
+    async loadInitialData(userId) {
+      await dispatch(getAllUserData())
+      await dispatch(getUserWorkouts(userId))
+      await dispatch(getAllUsers())
+    },
+  };
+};
 
-// export default withRouter(connect(mapState, mapDispatch)(UserHome))
-
-export default connect(mapState)(UserHome);
+export default connect(mapState, mapDispatch)(UserHome);

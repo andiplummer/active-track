@@ -1,41 +1,52 @@
-import React from 'react'
-import {connect} from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
+import { getYtdMiles, getMtdMiles, getWtdMiles, getDailyMileRecord } from '../../utils/distanceUtils';
 
-const HeroStats = () => (
-  <div className="hero-stats">
-    <div className="stat-container">
-      <h2>Year to Date</h2>
-      <div className="hero-mile-count">
-        <h1>103.56</h1>
+const HeroStats = props => {
+  const ytdMiles = getYtdMiles(props.userWorkouts)
+  const mtdMiles = getMtdMiles(props.userWorkouts)
+  const wtdMiles = getWtdMiles(props.userWorkouts)
+  const dailyMileRecord = getDailyMileRecord(props.userWorkouts)
+
+  return (
+    <div className="hero-stats">
+      <div className="stat-container">
+        <h2>Year to Date</h2>
+        <div className="hero-mile-count">
+          <h1>{ytdMiles}</h1>
+        </div>
+      </div>
+      <div className="vl"></div>
+      <div className="stat-container">
+        <h2>Month to Date</h2>
+        <div className="hero-mile-count">
+          <h1>{mtdMiles}</h1>
+        </div>
+      </div>
+      <div className="vl"></div>
+      <div className="stat-container">
+        <h2>Week to Date</h2>
+        <div className="hero-mile-count">
+          <h1>{wtdMiles}</h1>
+        </div>
+      </div>
+      <div className="vl"></div>
+      <div className="stat-container">
+        <h2>Daily Record</h2>
+        <div className="hero-mile-count">
+          <h1>{dailyMileRecord}</h1>
+        </div>
       </div>
     </div>
-    <div className="vl"></div>
-    <div className="stat-container">
-      <h2>Month to Date</h2>
-      <div className="hero-mile-count">
-        <h1>60.32</h1>
-      </div>
-    </div>
-    <div className="vl"></div>
-    <div className="stat-container">
-      <h2>Week to Date</h2>
-      <div className="hero-mile-count">
-        <h1>15.00</h1>
-      </div>
-    </div>
-  </div>
-)
+  );
+};
 
 const mapState = state => {
-  return {
-    
-  }
-}
+  return {};
+};
 
 const mapDispatch = dispatch => {
-  return {
-    
-  }
-}
+  return {};
+};
 
-export default connect(mapState, mapDispatch)(HeroStats)
+export default connect(mapState, mapDispatch)(HeroStats);
