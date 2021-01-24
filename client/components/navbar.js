@@ -3,14 +3,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
-import { clearWorkoutState } from '../store'
+import { clearWorkoutState } from '../store';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div className="nav">
-    <div className="left-nav">
-      <h1>Family Fit</h1>
+    <div to="/home" className="left-nav">
+      <Link to="/home" className="header-link">
+        <h1>
+          <span className="active-style">Active</span>
+          <span className="track-style">Track</span>
+        </h1>
+      </Link>
     </div>
-    <Link to="/activity-log" className="nav-link">Activity Log</Link>
+    <Link to="/activity-log" className="nav-link">
+      Activity Log
+    </Link>
     <div className="logout-container">
       <a className="logout-link" href="#" onClick={handleClick}>
         Logout
@@ -32,7 +39,7 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout());
-      dispatch(clearWorkoutState())
+      dispatch(clearWorkoutState());
     },
   };
 };

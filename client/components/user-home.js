@@ -30,9 +30,9 @@ class UserHome extends React.Component {
 const mapState = state => {
   return {
     user: state.user,
-    allUsers: state.data.allUsers,
-    workouts: state.data.userWorkouts,
-    allUserData: state.data.allUserData
+    allUsers: state.activity.allUsers,
+    workouts: state.activity.userWorkouts,
+    allUserData: state.activity.allUserData
   };
 };
 

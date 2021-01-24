@@ -1,10 +1,10 @@
 const router = require('express').Router()
-const {Workout, User} = require('../db/models')
+const {Activity, User} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const userWorkouts = await Workout.findAll({
+    const userWorkouts = await Activity.findAll({
     })
     res.json(userWorkouts)
   } catch (err) {
@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    const userWorkouts = await Workout.findAll({
+    const userWorkouts = await Activity.findAll({
       where: {
         userId: req.params.userId
       }
@@ -25,9 +25,10 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-router.get('/ytd/:userId', async (req, res, next) => {
+router.post('/add/:userId', async (req, res, next) => {
   try {
-    const userWorkouts = await Workout.findAll({
+    // validate body
+    await Activity.create({
       where: {
         userId: req.params.userId
       }

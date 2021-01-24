@@ -23,7 +23,7 @@ const getTodaysDate = outputFormat => {
 };
 
 const formatDate = (date, inputFormat, outputFormat) =>
-  moment(date, inputFormat).format(format, outputFormat);
+  moment(date, inputFormat).format(outputFormat);
 
 const convertDateToTimestamp = date => moment(date, 'YYYY-MM-DD').unix();
 

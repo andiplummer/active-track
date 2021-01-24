@@ -6,12 +6,14 @@ import {
   formatCurrentMonthSingleParticipantDataForLineChart,
   formatUserDataForBarChart,
 } from '../../utils/chartData';
-import {getTodaysDate} from '../../utils/dateTimeUtils'
+import { formatDate } from '../../utils/dateTimeUtils'
 
 const Chart = props => {
   const lineChartData = formatCurrentMonthSingleParticipantDataForLineChart(
     props.workouts
   );
+
+  const firstDataPoint = Object.keys(lineChartData[1].data)[0]
   
   const barChartData = formatUserDataForBarChart(
     props.allUsers,
@@ -23,12 +25,7 @@ const Chart = props => {
       <div className="chart-container">
         <div className="chart-header">
           <h1>Activity Data</h1>
-          <h2>January 1, 2021 - Today</h2>
-          {/* <div className="filters">
-            <div className="disabled">Week</div>
-            <div className="enabled">Month</div>
-            <div className="disabled">Year</div>
-          </div> */}
+          <h2>{formatDate(firstDataPoint, 'YYYY-MM-DD', 'LL')} - Today</h2>
         </div>
 
         <div className="chart">
@@ -37,7 +34,7 @@ const Chart = props => {
             curve={false}
             width={'95%'}
             height={'450px'}
-            colors={['#89b1cc', '#266150']}
+            colors={['#B4DFE5', '#F4976C']}
             legend={'top'}
           />
         </div>
@@ -46,7 +43,7 @@ const Chart = props => {
         <h1>Leaderboard</h1>
         <BarChart
           data={barChartData}
-          colors={['#266150', '#E8CEBF', '#89b1cc', '#cc89a2']}
+          colors={['#F4976C', '#E8CEBF', '#89b1cc', '#cc89a2']}
           height={`${75 * barChartData.length}px`}
         />
       </div>
@@ -57,9 +54,9 @@ const Chart = props => {
 const mapState = state => {
   return {
     user: state.user,
-    allUsers: state.data.allUsers,
-    workouts: state.data.userWorkouts,
-    allUserData: state.data.allUserData,
+    allUsers: state.activity.allUsers,
+    workouts: state.activity.userWorkouts,
+    allUserData: state.activity.allUserData,
   };
 };
 

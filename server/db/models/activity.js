@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Workout = db.define('workout', {
+const Activity = db.define('activity', {
   dateFrom: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -16,4 +16,4 @@ const Workout = db.define('workout', {
   },
 })
 
-module.exports = Workout
+module.exports = Activity

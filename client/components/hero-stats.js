@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getYtdMiles, getMtdMiles, getWtdMiles, getDailyMileRecord } from '../../utils/distanceUtils';
+import { getCurrentYear } from '../../utils/dateTimeUtils'
 
 const HeroStats = props => {
   const ytdMiles = getYtdMiles(props.userWorkouts)
@@ -12,6 +13,7 @@ const HeroStats = props => {
     <div className="hero-stats">
       <div className="stat-container">
         <h2>Year to Date</h2>
+        <h4>January 1, {getCurrentYear()} - Today</h4>
         <div className="hero-mile-count">
           <h1>{ytdMiles}</h1>
         </div>

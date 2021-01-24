@@ -30,7 +30,7 @@ export const clearWorkoutState = () => async dispatch => {
 }
 
 export const getUserWorkouts = userId => async dispatch => {
-  const {data} = await axios.get(`/api/workouts/${userId}`)
+  const {data} = await axios.get(`/api/activity/${userId}`)
   dispatch(gotUserWorkouts(data))
 }
 
@@ -43,7 +43,7 @@ export const getAllUserData = () => async dispatch => {
   const {data} = await axios.get('/api/users')
   const result = {}
   await data.forEach(async user => {
-    const res = await axios.get(`/api/workouts/${user.id}`)
+    const res = await axios.get(`/api/activity/${user.id}`)
     result[user.id] = res.data
   })
 
