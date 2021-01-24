@@ -1,20 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { sortAllUserDataByDate } from '../../utils/chartData';
-import { getUserWorkouts, getAllUsers, getAllUserData } from '../store';
-import { Navbar, HeroStats, Chart } from './index';
+import { getUserWorkouts, addUserActivity } from '../store';
+import { Navbar, ActivityHistoryTable } from './index';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import InputBase from '@material-ui/core/InputBase';
+import Button from '@material-ui/core/Button';
+import {
+  getTodaysDate,
+  convertDateToTimestamp,
+  formatDate,
+} from '../../utils/dateTimeUtils';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import InputBase from '@material-ui/core/InputBase';
-import Button from '@material-ui/core/Button';
 
 const BootstrapInput = withStyles(theme => ({
   root: {
@@ -58,10 +67,11 @@ class ActivityLog extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
-      startDate: new Date(),
-      endDate: new Date(),
+      dateFrom: new Date(),
+      dateTo: new Date(),
       distance: 0,
       inputUnit: 'mi',
+      rowData: [],
     };
 
     this.handleSelectUnit = this.handleSelectUnit.bind(this);
@@ -69,34 +79,70 @@ class ActivityLog extends React.Component {
     this.handleSelectStartDate = this.handleSelectStartDate.bind(this);
     this.handleSelectEndDate = this.handleSelectEndDate.bind(this);
     this.handleLogNewActivity = this.handleLogNewActivity.bind(this);
+    this.formatRowData = this.formatRowData.bind(this);
+    this.createData = this.createData.bind(this);
   }
 
   async componentDidMount() {
     await this.props.loadInitialData(this.props.user.id);
+    this.formatRowData(this.props.workouts);
     this.setState({ isLoading: false });
   }
 
   async handleSelectUnit(event) {
     await this.setState({ inputUnit: event.target.value });
-    console.log('updated state here', this.state);
   }
 
   async handleSelectStartDate(event) {
-    await this.setState({ startDate: event.target.value });
-    console.log('updated state here', this.state);
+    await this.setState({ dateFrom: event.target.value });
   }
 
   async handleSelectEndDate(event) {
-    await this.setState({ endDate: event.target.value });
-    console.log('updated state here', this.state);
+    await this.setState({ dateTo: event.target.value });
   }
 
   async handleInputDistance(event) {
     await this.setState({ distance: event.target.value });
-    console.log('updated state here', this.state);
   }
 
-  async handleLogNewActivity(event) {}
+  async handleLogNewActivity(event) {
+    event.preventDefault();
+    await this.props.addNewActivity(this.props.user.id, {
+      dateFrom: this.state.dateFrom,
+      dateTo: this.state.dateTo,
+      distance: this.state.distance,
+    });
+
+    this.formatRowData(this.props.workouts);
+    this.setState({ distance: 0 });
+  }
+
+  createData(editIcon, distance, dateFrom, dateTo) {
+    return { editIcon, distance, dateFrom, dateTo };
+  }
+
+  formatRowData(userData) {
+    const sortedData = sortAllUserDataByDate(userData).reverse();
+    const rows = sortedData.map(dataPoint => {
+      return this.createData(
+        <Fab
+          color="secondary"
+          size="small"
+          style={{ backgroundColor: 'black' }}
+          aria-label="edit"
+        >
+          <EditIcon />
+        </Fab>,
+        dataPoint.distance,
+        dataPoint.dateFrom,
+        dataPoint.dateTo
+      );
+    });
+
+    console.log('rows hereeeee', rows);
+
+    this.setState({ rowData: rows });
+  }
 
   render() {
     return (
@@ -112,10 +158,10 @@ class ActivityLog extends React.Component {
                 <form noValidate>
                   <TextField
                     id="date"
-                    label="Start Date"
+                    label="Date From"
                     type="date"
                     className="start-date-picker"
-                    defaultValue={this.state.startDate}
+                    defaultValue={this.state.dateFrom}
                     onChange={this.handleSelectStartDate}
                     InputLabelProps={{
                       shrink: true,
@@ -128,10 +174,10 @@ class ActivityLog extends React.Component {
                 <form>
                   <TextField
                     id="date"
-                    label="End Date"
+                    label="Date To"
                     type="date"
                     className="end-date-picker"
-                    defaultValue={this.state.endDate}
+                    defaultValue={this.state.dateTo}
                     onChange={this.handleSelectEndDate}
                     InputLabelProps={{
                       shrink: true,
@@ -150,27 +196,11 @@ class ActivityLog extends React.Component {
                   />
                 </FormControl>
               </div>
-              {/* <div className="input-container">
-                <FormControl className="unit-input">
-                  <InputLabel>Unit</InputLabel>
-                  <Select
-                    defaultValue={this.state.inputUnit}
-                    value={this.state.inputUnit}
-                    onChange={this.handleSelectUnit}
-                    input={<BootstrapInput />}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value="mi">mi</MenuItem>
-                    <MenuItem value="km">km</MenuItem>
-                  </Select>
-                </FormControl>
-              </div> */}
 
               <div className="icon-container">
                 <Button
                   variant="contained"
+                  onClick={this.handleLogNewActivity}
                   style={{
                     backgroundColor: '#F4976C',
                     color: 'white',
@@ -180,25 +210,53 @@ class ActivityLog extends React.Component {
                 >
                   Add
                 </Button>
-                {/* <Fab onClick={this.handleLogNewActivity} style={{ backgroundColor: '#e8cebf' }} size="small" className="add-icon">
-                  <AddIcon style={{ color: 'white' }} />
-                </Fab> */}
               </div>
             </div>
           </div>
-          <div>
-            
-          </div>
+          <div></div>
         </div>
 
-        {/* {this.state.isLoading
-          ? null
-          : sortAllUserDataByDate(this.props.workouts).map(workoutEntry => (
-              <tr>
-                <td>{workoutEntry.distance}</td>
-                <td>{workoutEntry.dateTo}</td>
-              </tr>
-            ))} */}
+        <div>
+          {/* <ActivityHistoryTable /> */}
+          <div className="table-container">
+            <TableContainer component={Paper}>
+              <Table aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell> </TableCell>
+                    <TableCell align="center">Date</TableCell>
+                    <TableCell align="center">Miles</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {this.state.rowData.length
+                    ? this.state.rowData.map(row => (
+                        <TableRow key={row.distance}>
+                          <TableCell align="center" component="th" scope="row">
+                            {row.editIcon}
+                          </TableCell>
+                          <TableCell align="left">
+                            {row.dateFrom === row.dateTo
+                              ? formatDate(row.dateFrom, 'YYYY-MM-DD', 'LL')
+                              : `${formatDate(
+                                  row.dateFrom,
+                                  'YYYY-MM-DD',
+                                  'LL'
+                                )} - ${formatDate(
+                                  row.dateTo,
+                                  'YYYY-MM-DD',
+                                  'LL'
+                                )}`}
+                          </TableCell>
+                          <TableCell align="left">{row.distance}</TableCell>
+                        </TableRow>
+                      ))
+                    : null}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+        </div>
       </div>
     );
   }
@@ -215,6 +273,9 @@ const mapDispatch = dispatch => {
   return {
     async loadInitialData(userId) {
       await dispatch(getUserWorkouts(userId));
+    },
+    async addNewActivity(userId, body) {
+      await dispatch(addUserActivity(userId, body));
     },
   };
 };

@@ -61,20 +61,18 @@ async function seed() {
     Activity.create({dateFrom: '2021-01-19', dateTo: '2021-01-19', distance: 3.48, userId: 1 }),
     Activity.create({dateFrom: '2021-01-20', dateTo: '2021-01-20', distance: 1.98, userId: 1 }),
     Activity.create({dateFrom: '2021-01-21', dateTo: '2021-01-21', distance: 1.2, userId: 1 }),
-    Activity.create({dateFrom: '2021-01-22', dateTo: '2021-01-22', distance: 1.69, userId: 1 }),
   ])
 
   await Promise.all([
     Activity.create({dateFrom: '2021-01-01', dateTo: '2021-01-17', distance: 49.41, userId: 2 }),
-    Activity.create({dateFrom: '2021-01-01', dateTo: '2021-01-17', distance: 7.12, userId: 2 }),
     Activity.create({dateFrom: '2021-01-20', dateTo: '2021-01-20', distance: 6.07, userId: 2 }),
     Activity.create({dateFrom: '2021-01-21', dateTo: '2021-01-21', distance: 5.18, userId: 2 }),
     Activity.create({dateFrom: '2021-01-22', dateTo: '2021-01-22', distance: 4.4, userId: 2 }),
   ])
 
-  await Promise.all([
-    Activity.create({dateFrom: '2021-01-01', dateTo: '2021-01-17', distance: 59, userId: 4 }),
-  ])
+  // await Promise.all([
+  //   Activity.create({dateFrom: '2021-01-01', dateTo: '2021-01-17', distance: 59, userId: 4 }),
+  // ])
 
   console.log(`seeded successfully`)
 }

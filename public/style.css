@@ -427,7 +427,7 @@ form input {
   margin-left: 15%;
 }
 
-.activity-log-container h1 {
+.log-new-activity-container h1 {
   font-family: 'mom-cake-thin';
   font-size: 1.8em;
   margin-top: 15px;
@@ -510,14 +510,21 @@ table {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  border: 1px solid #ececec;
 }
 
 th,
 td {
   width: 100px;
   text-align: left;
-  border: 1px solid #4f4846;
+  border: 1px solid #ececec;
   margin: 0;
+}
+
+.table-container {
+  width: 70%;
+  margin-left: 15%;
+  margin-bottom: 100px;
 }
 
 /* Smartphones (portrait) ----------- */
@@ -645,7 +652,7 @@ td {
     margin-top: 10%;
     width: 90%;
     margin-left: 5%;
-    height: 100vh;
+    /* height: 100vh; */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -699,6 +706,12 @@ td {
     width: 80%;
     margin-left: 10%;
   }
+
+  .table-container {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-bottom: 100px;
+  }
 }
 
 /* iPads (portrait) ----------- */
@@ -749,5 +762,11 @@ td {
     margin-top: -2%;
     margin-left: 2%;
     width: 20%;
+  }
+
+  .table-container {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-bottom: 100px;
   }
 }
