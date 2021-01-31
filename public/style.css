@@ -591,14 +591,19 @@ td {
 
   .nav h1 {
     width: 200px;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: flex-start; */
   }
 
   .nav .active-style {
-    font-size: 0.6em;
+    font-size: 0.5em;
+    width: 100px;
   }
 
   .nav .track-style {
-    font-size: 0.6em;
+    font-size: 0.5em;
+    /* width: 100px; */
   }
 
   .header-link {
