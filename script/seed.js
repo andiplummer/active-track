@@ -70,10 +70,6 @@ async function seed() {
     Activity.create({dateFrom: '2021-01-22', dateTo: '2021-01-22', distance: 4.4, userId: 2 }),
   ])
 
-  // await Promise.all([
-  //   Activity.create({dateFrom: '2021-01-01', dateTo: '2021-01-17', distance: 59, userId: 4 }),
-  // ])
-
   console.log(`seeded successfully`)
 }
 

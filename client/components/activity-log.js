@@ -105,6 +105,10 @@ class ActivityLog extends React.Component {
     await this.setState({ distance: event.target.value });
   }
 
+  // async handleDeleteEntry(event) {
+  //   await 
+  // }
+
   async handleLogNewActivity(event) {
     event.preventDefault();
     await this.props.addNewActivity(this.props.user.id, {
@@ -117,29 +121,23 @@ class ActivityLog extends React.Component {
     this.setState({ distance: 0 });
   }
 
-  createData(editIcon, distance, dateFrom, dateTo) {
-    return { editIcon, distance, dateFrom, dateTo };
+  createData(deleteIcon, distance, dateFrom, dateTo, id) {
+    return { deleteIcon, distance, dateFrom, dateTo, id };
   }
 
   formatRowData(userData) {
     const sortedData = sortAllUserDataByDate(userData).reverse();
     const rows = sortedData.map(dataPoint => {
       return this.createData(
-        <Fab
-          color="secondary"
-          size="small"
-          style={{ backgroundColor: 'black' }}
-          aria-label="edit"
-        >
-          <EditIcon />
-        </Fab>,
+        <div>
+          <Button value={dataPoint.id} variant="outlined" style={{fontSize: "10px", width: "40px", padding: "2px"}}>delete</Button>
+        </div>,
         dataPoint.distance,
         dataPoint.dateFrom,
-        dataPoint.dateTo
+        dataPoint.dateTo,
+        dataPoint.id
       );
     });
-
-    console.log('rows hereeeee', rows);
 
     this.setState({ rowData: rows });
   }
@@ -231,9 +229,9 @@ class ActivityLog extends React.Component {
                 <TableBody>
                   {this.state.rowData.length
                     ? this.state.rowData.map(row => (
-                        <TableRow key={row.distance}>
+                        <TableRow key={row.id}>
                           <TableCell align="center" component="th" scope="row">
-                            {row.editIcon}
+                            {row.deleteIcon}
                           </TableCell>
                           <TableCell align="left">
                             {row.dateFrom === row.dateTo

@@ -560,7 +560,7 @@ td {
   }
 
   .login-container form div {
-    height: 40px;
+    height: 50px;
     margin-bottom: 10px;
   }
 
@@ -569,14 +569,28 @@ td {
     padding: 10px;
   }
 
+  .login-container .button-container {
+    height: 60px;
+  }
+
   .login-container button {
     width: 300px;
+  }
+
+  .error-response {
+    color: #F4976C;
+    margin-top: 5px;
+    text-align: center;
   }
 
   .nav {
     height: 60px;
     padding-left: 10px;
     padding-right: 10px;
+  }
+
+  .nav h1 {
+    width: 200px;
   }
 
   .nav .active-style {
@@ -611,6 +625,7 @@ td {
   .stat-container {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     width: 350px;
   }
 
@@ -619,11 +634,13 @@ td {
     margin-bottom: 10px;
     font-size: 1em;
     text-align: center;
+    width: 125px;
   }
 
   .stat-container h1 {
     font-size: 2.25em;
     text-align: center;
+    width: 125px;
   }
 
   .perf-chart-section {

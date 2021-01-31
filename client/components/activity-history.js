@@ -44,9 +44,12 @@ class ActivityHistoryTable extends React.Component {
     const sortedData = sortAllUserDataByDate(userData);
     const rows = sortedData.map(dataPoint => {
       return this.createData(
-        <Fab color="secondary" size="small" style={{backgroundColor: '#B4DFE5'}} aria-label="edit">
-          <EditIcon />
-        </Fab>,
+        // <Fab color="secondary" size="small" style={{backgroundColor: '#B4DFE5'}} aria-label="edit">
+        //   <EditIcon />
+        // </Fab>,
+        <div>
+
+        </div>,
         dataPoint.distance,
         dataPoint.dateFrom,
         dataPoint.dateTo

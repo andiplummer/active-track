@@ -36,7 +36,7 @@ const AuthForm = props => {
           <div>
             <input placeholder="Password" name="password" type="password" />
           </div>
-          <div>
+          <div className="button-container">
             <button type="submit">{displayName}</button>
           </div>
           <div>
@@ -51,7 +51,7 @@ const AuthForm = props => {
               </p>
             )}
           </div>
-          {error && error.response && <div> {error.response.data} </div>}
+          {error && error.response && <div className="error-response"> {error.response.data} </div>}
         </form>
       </div>
     </div>

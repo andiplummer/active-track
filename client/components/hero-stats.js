@@ -13,7 +13,7 @@ const HeroStats = props => {
     <div className="hero-stats">
       <div className="stat-container">
         <h2>Year to Date</h2>
-        <h4>January 1, {getCurrentYear()} - Today</h4>
+        {/* <h4>January 1, {getCurrentYear()} - Today</h4> */}
         <div className="hero-mile-count">
           <h1>{ytdMiles}</h1>
         </div>
@@ -32,13 +32,13 @@ const HeroStats = props => {
           <h1>{wtdMiles}</h1>
         </div>
       </div>
-      <div className="vl"></div>
-      <div className="stat-container">
+      {/* <div className="vl"></div> */}
+      {/* <div className="stat-container">
         <h2>Daily Record</h2>
         <div className="hero-mile-count">
           <h1>{dailyMileRecord}</h1>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
