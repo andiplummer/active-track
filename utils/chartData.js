@@ -157,7 +157,7 @@ const formatCurrentMonthSingleParticipantDataForLineChart = singleUserWorkoutDat
 
 const formatAllUserDataForLineChart = (allUsers, allUserData) => {
   const lineChartData = [];
-  const userIdsInAllUserData = Object.keys(allUserData).filter(id => id === 3);
+  const userIdsInAllUserData = Object.keys(allUserData)
 
   userIdsInAllUserData.forEach(userId => {
     const userDetails = allUsers.find(user => user.id === Number(userId));
@@ -178,7 +178,6 @@ const formatUserDataForBarChart = (allUsers, allUserData) => {
 
   userIdsInAllUserData.forEach(userId => {
     const userDetails = allUsers.find(user => user.id === Number(userId));
-    console.log('user userDetails', userDetails);
 
     const userData = allUserData[userId];
     barChartData.push({
