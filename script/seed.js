@@ -7,12 +7,12 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  // await Promise.all([
-  //   User.create({firstName: 'Andi', lastName: 'Plummer', email: 'andi@gmail.com', password: '123'}),
-  //   User.create({firstName: 'Jim', lastName: 'Plummer', email: 'jim@gmail.com', password: '123'}),
-  //   User.create({firstName: 'Sue', lastName: 'Plummer', email: 'sue@gmail.com', password: '123'}),
-  //   User.create({firstName: 'Jenny', lastName: 'Plummer', email: 'jenny@gmail.com', password: '123'})
-  // ])
+  await Promise.all([
+    User.create({firstName: 'Andi', lastName: 'Plummer', email: 'andi@gmail.com', password: '123'}),
+    // User.create({firstName: 'Jim', lastName: 'Plummer', email: 'jim@gmail.com', password: '123'}),
+    // User.create({firstName: 'Sue', lastName: 'Plummer', email: 'sue@gmail.com', password: '123'}),
+    // User.create({firstName: 'Jenny', lastName: 'Plummer', email: 'jenny@gmail.com', password: '123'})
+  ])
 
   // await Promise.all([
   //   Activity.create({dateFrom: '2021-01-01', dateTo: '2021-01-01', distance: 5.17, userId: 3 }),

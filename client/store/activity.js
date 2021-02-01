@@ -5,6 +5,7 @@ export const GOT_ALL_USER_DATA = 'GOT_ALL_USER_DATA'
 export const CLEARED_WORKOUT_STATE = 'CLEARED_WORKOUT_STATE'
 export const GOT_USER_WORKOUTS = 'GOT_USER_WORKOUTS'
 export const ADDED_USER_ACTIVITY = 'ADDED_USER_ACTIVITY'
+export const DELETED_ACTIVITY = 'DELETED_ACTIVITY'
 
 
 export const clearedWorkoutState = () => ({
@@ -28,6 +29,11 @@ export const gotAllUserData = data => ({
 
 export const addedUserActivity = activity => ({
   type: ADDED_USER_ACTIVITY,
+  activity
+})
+
+export const deletedActivity = activity => ({
+  type: DELETED_ACTIVITY,
   activity
 })
 
@@ -57,9 +63,17 @@ export const getAllUserData = () => async dispatch => {
 }
 
 export const addUserActivity = (userId, body) => async dispatch => {
-  console.log('user id and body', userId, body)
   const {data} = await axios.post(`/api/activity/add/${userId}`, body)
   dispatch(addedUserActivity(data))
+}
+
+export const deleteActivity = (id, userId) => async dispatch => {
+  console.log('id in reducerrr', id)
+  console.log('userid in reducerrr', userId)
+  await axios.delete(`/api/activity/${id}`)
+  const {data} = await axios.get(`/api/activity/${userId}`)
+  console.log('data', data)
+  dispatch(deletedActivity(data))
 }
 
 // REDUCER
@@ -81,7 +95,9 @@ export default function(state = initialState, action) {
       return {...state, allUserData: action.data}
     case ADDED_USER_ACTIVITY:
       return {...state, userWorkouts: [...state.userWorkouts, action.activity]}
+    case DELETED_ACTIVITY:
+      return {...state, userWorkouts: action.activity}
     default:
-      return state
+    return state
   }
 }

@@ -12,7 +12,7 @@ import { sortAllUserDataByDate } from '../../utils/chartData';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
-import { getUserWorkouts } from '../store';
+import { getUserWorkouts, deleteActivity } from '../store';
 
 // const useStyles = makeStyles({
 //   table: {
@@ -105,6 +105,9 @@ const mapDispatch = dispatch => {
   return {
     async loadInitialData(userId) {
       await dispatch(getUserWorkouts(userId));
+    },
+    async deleteActivity(id) {
+      await dispatch(deleteActivity(id))
     },
   };
 };

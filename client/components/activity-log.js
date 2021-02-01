@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { sortAllUserDataByDate } from '../../utils/chartData';
-import { getUserWorkouts, addUserActivity } from '../store';
+import { getUserWorkouts, addUserActivity, deleteActivity } from '../store';
 import { Navbar, ActivityHistoryTable } from './index';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -81,6 +81,7 @@ class ActivityLog extends React.Component {
     this.handleLogNewActivity = this.handleLogNewActivity.bind(this);
     this.formatRowData = this.formatRowData.bind(this);
     this.createData = this.createData.bind(this);
+    this.handleDeleteActivity = this.handleDeleteActivity.bind(this)
   }
 
   async componentDidMount() {
@@ -105,10 +106,6 @@ class ActivityLog extends React.Component {
     await this.setState({ distance: event.target.value });
   }
 
-  // async handleDeleteEntry(event) {
-  //   await 
-  // }
-
   async handleLogNewActivity(event) {
     event.preventDefault();
     await this.props.addNewActivity(this.props.user.id, {
@@ -121,6 +118,12 @@ class ActivityLog extends React.Component {
     this.setState({ distance: 0 });
   }
 
+  async handleDeleteActivity(event, id) {
+    event.preventDefault()
+    await this.props.deleteUserActivity(id, this.props.user.id)
+    this.formatRowData(this.props.workouts)
+  }
+
   createData(deleteIcon, distance, dateFrom, dateTo, id) {
     return { deleteIcon, distance, dateFrom, dateTo, id };
   }
@@ -130,7 +133,7 @@ class ActivityLog extends React.Component {
     const rows = sortedData.map(dataPoint => {
       return this.createData(
         <div>
-          <Button value={dataPoint.id} variant="outlined" style={{fontSize: "10px", width: "40px", padding: "2px"}}>delete</Button>
+          <Button onClick={(event) => this.handleDeleteActivity(event, dataPoint.id)} variant="outlined" style={{fontSize: "10px", width: "40px", padding: "2px"}}>delete</Button>
         </div>,
         dataPoint.distance,
         dataPoint.dateFrom,
@@ -274,6 +277,9 @@ const mapDispatch = dispatch => {
     },
     async addNewActivity(userId, body) {
       await dispatch(addUserActivity(userId, body));
+    },
+    async deleteUserActivity(id, userId) {
+      await dispatch(deleteActivity(id, userId))
     },
   };
 };

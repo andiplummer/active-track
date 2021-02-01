@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
  * COMPONENT
  */
 const AuthForm = props => {
-  const { name, displayName, handleSubmit, error } = props;
+  const { name, displayName, handleSubmit, error, handleChangeForm } = props;
 
   return (
     <div className="login-container">
@@ -39,19 +39,28 @@ const AuthForm = props => {
           <div className="button-container">
             <button type="submit">{displayName}</button>
           </div>
-          <div>
+          <div className="error-container">
             {props.name === 'login' ? (
               <p>
                 Don't have an account yet?{' '}
-                <Link to="/signup">Signup here.</Link>
+                <Link to="/signup" onClick={handleChangeForm}>
+                  Signup here.
+                </Link>
               </p>
             ) : (
               <p>
-                Already have an account? <Link to="/login">Login here</Link>
+                Already have an account?{' '}
+                <Link onClick={handleChangeForm} to="/login">
+                  Login here
+                </Link>
               </p>
             )}
           </div>
-          {error && error.response && <div className="error-response"> {error.response.data} </div>}
+          <div className="login-error-response">
+            {console.log('props name', {props: props.name})}
+            {(props.name === 'login' && error && error.response) ? error.response.data : ''}{' '}
+          </div>
+          <div className="signup-error-response"></div>
         </form>
       </div>
     </div>
@@ -92,7 +101,27 @@ const mapDispatch = dispatch => {
         evt.target.name === 'signup' ? evt.target.firstName.value : null;
       const lastName =
         evt.target.name === 'signup' ? evt.target.lastName.value : null;
-      dispatch(auth(email, password, formName, firstName, lastName));
+
+      if (
+        formName === 'signup' &&
+        (!firstName ||
+          !lastName ||
+          !email ||
+          !password ||
+          firstName === '' ||
+          lastName === '' ||
+          email === '' ||
+          password === '')
+      ) {
+        const errorMsgEl = document.querySelector('.signup-error-response');
+        errorMsgEl.innerHTML = 'Please enter value for all fields';
+      } else {
+        dispatch(auth(email, password, formName, firstName, lastName));
+      }
+    },
+    handleChangeForm(evt) {
+      const errorMsgEl = document.querySelector('.signup-error-response');
+      errorMsgEl.innerHTML = '';
     },
   };
 };
