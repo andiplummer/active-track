@@ -11,7 +11,7 @@ const getYtdMiles = userWorkouts => {
 
   let ytdMiles = 0;
   userWorkouts.forEach(workout => {
-    const workoutYear = Number(workout.dateFrom.split('-')[0]);
+    const workoutYear = Number(workout.date.split('-')[0]);
 
     if (workoutYear === currentYear) {
       ytdMiles += workout.distance;
@@ -26,7 +26,7 @@ const getMtdMiles = userWorkouts => {
 
   let mtdMiles = 0;
   userWorkouts.forEach(workout => {
-    const workoutMonth = workout.dateFrom.split('-')[1];
+    const workoutMonth = workout.date.split('-')[1];
 
     if (workoutMonth === currentMonth) {
       mtdMiles += workout.distance;

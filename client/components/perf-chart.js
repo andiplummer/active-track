@@ -5,16 +5,22 @@ import 'chart.js';
 import {
   formatCurrentMonthSingleParticipantDataForLineChart,
   formatUserDataForBarChart,
+  getTargetActivityData,
 } from '../../utils/chartData';
 import { formatDate } from '../../utils/dateTimeUtils';
-import { ActivityLog } from './index';
 
 const Chart = props => {
-  const lineChartData = formatCurrentMonthSingleParticipantDataForLineChart(
-    props.workouts
-  );
+  const lineChartData = props.myActivity.length ? formatCurrentMonthSingleParticipantDataForLineChart(
+    props.myActivity
+  ) : [
+    {
+      name: 'Target activity to reach 100 miles',
+      data: getTargetActivityData(),
+    },
+  ]
+  console.log('data', lineChartData)
 
-  const firstDataPoint = Object.keys(lineChartData[1].data)[0];
+  const firstDataPoint = props.myActivity.length ? Object.keys(lineChartData[1].data)[0] : null;
 
   const barChartData = formatUserDataForBarChart(
     props.allUsers,
@@ -23,12 +29,10 @@ const Chart = props => {
 
   return (
     <div className="perf-chart-section">
-      {/* <ActivityLog /> */}
-      {/* <div className="perf-chart-section"> */}
         <div className="chart-container">
           <div className="chart-header">
             <h1>Activity Data</h1>
-            <h2>{formatDate(firstDataPoint, 'YYYY-MM-DD', 'LL')} - Today</h2>
+            <h2>{firstDataPoint ? formatDate(firstDataPoint, 'YYYY-MM-DD', 'LL') - Today : `Record activity to view your progress`}</h2>
           </div>
 
           <div className="chart">
@@ -50,7 +54,6 @@ const Chart = props => {
             height={`${75 * barChartData.length}px`}
           />
         </div>
-      {/* </div> */}
     </div>
   );
 };
@@ -59,7 +62,7 @@ const mapState = state => {
   return {
     user: state.user,
     allUsers: state.activity.allUsers,
-    workouts: state.activity.userWorkouts,
+    myActivity: state.activity.userWorkouts,
     allUserData: state.activity.allUserData,
   };
 };

@@ -4,20 +4,24 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
 import { clearWorkoutState } from '../store';
+import { FadeInAnimation } from './index';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div className="nav">
-    <div to="/home" className="left-nav">
-      <Link to="/home" className="header-link">
-        <h1>
-          <span className="active-style">Active</span>
-          <span className="track-style">Track</span>
-        </h1>
-      </Link>
-    </div>
+    <FadeInAnimation>
+      <div to="/home" className="left-nav">
+        <Link to="/home" className="header-link">
+          <h1>
+            <span className="active-style">Active</span>
+            <span className="track-style">Track</span>
+          </h1>
+        </Link>
+      </div>
+    </FadeInAnimation>
     <Link to="/activity-log" className="nav-link">
       Activity Log
     </Link>
+
     <div className="logout-container">
       <a className="logout-link" href="#" onClick={handleClick}>
         Logout

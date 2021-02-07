@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
+import { Navbar, RecordActivityForm, FadeInAnimation } from './index';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,87 +8,103 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { sortAllUserDataByDate } from '../../utils/chartData';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import { getUserWorkouts, deleteActivity } from '../store';
-
-// const useStyles = makeStyles({
-//   table: {
-//     minWidth: 350,
-//   },
-// });
-
-// const classes = useStyles();
+import Button from '@material-ui/core/Button';
+import {
+  getUserWorkouts,
+  deleteActivity,
+  updateActivityHistoryTable,
+} from '../store';
+import { formatDate } from '../../utils/dateTimeUtils';
 
 class ActivityHistoryTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rowData: [],
+      isLoading: false,
+      chartData: [],
     };
+
+    this.handleDeleteActivity = this.handleDeleteActivity.bind(this);
   }
 
   async componentDidMount() {
     await this.props.loadInitialData(this.props.user.id);
-    const rowData = await this.formatRowData(this.props.workouts);
-    await this.setState({ rowData });
+    await this.props.updateActivityHistoryTable(this.props.workouts);
+    this.setState({ isLoading: false });
   }
 
-  createData(editIcon, distance, dateFrom, dateTo) {
-    return { editIcon, distance, dateFrom, dateTo };
-  };
-
-  formatRowData(userData) {
-    const sortedData = sortAllUserDataByDate(userData);
-    const rows = sortedData.map(dataPoint => {
-      return this.createData(
-        // <Fab color="secondary" size="small" style={{backgroundColor: '#B4DFE5'}} aria-label="edit">
-        //   <EditIcon />
-        // </Fab>,
-        <div>
-
-        </div>,
-        dataPoint.distance,
-        dataPoint.dateFrom,
-        dataPoint.dateTo
-      );
+  async handleDeleteActivity(event, id) {
+    await this.props.deleteUserActivity(id, this.props.user.id);
+    await this.props.updateActivityHistoryTable(this.props.workouts);
+    this.setState({
+      isLoading: false,
     });
-
-    console.log('rows hereeeee', rows)
-    return rows;
   }
 
   render() {
     return (
-      <div className="table-container">
-        <TableContainer component={Paper}>
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell> </TableCell>
-                <TableCell align="center">Distance&nbsp;(miles)</TableCell>
-                <TableCell align="center">Start Date</TableCell>
-                <TableCell align="center">End Date</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {this.state.rowData.length
-                ? this.state.rowData.map(row => (
-                    <TableRow key={row.distance}>
-                      <TableCell align="center" component="th" scope="row">
-                        {row.editIcon}
-                      </TableCell>
-                      <TableCell align="left">{row.distance}</TableCell>
-                      <TableCell align="left">{row.dateFrom}</TableCell>
-                      <TableCell align="left">{row.dateTo}</TableCell>
+      <div>
+        <Navbar />
+
+        <FadeInAnimation>
+          <RecordActivityForm chartData={this.props.activityTableData} />
+        </FadeInAnimation>
+
+        <FadeInAnimation>
+          <div className="table-container">
+            {this.props.activityTableData.length && !this.state.isLoading ? (
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="left">Date</TableCell>
+                      <TableCell align="left">Distance (miles)</TableCell>
+                      <TableCell align="right"> </TableCell>
                     </TableRow>
-                  ))
-                : null}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                  </TableHead>
+                  <TableBody>
+                    {this.props.activityTableData.map(row => (
+                      <TableRow key={row.id}>
+                        <TableCell align="left">
+                          {
+                            <div className="date-time-container">
+                              <span className="date">{formatDate(row.date, 'MM/DD/YYYY')}</span>
+                              <span className="time">{row.time}</span>
+                            </div>
+                          }
+                        </TableCell>
+                        <TableCell align="left">
+                          {row.distance.toFixed(2)}
+                        </TableCell>
+                        <TableCell align="right" component="th" scope="row">
+                          <div>
+                            <Button
+                              onClick={event =>
+                                this.handleDeleteActivity(event, row.id)
+                              }
+                              variant="outlined"
+                              style={{
+                                fontSize: '10px',
+                                width: '40px',
+                                padding: '2px',
+                              }}
+                            >
+                              delete
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            ) : (
+              <div>
+                <h1>No Activity Data</h1>
+              </div>
+            )}
+          </div>
+        </FadeInAnimation>
       </div>
     );
   }
@@ -98,6 +114,7 @@ const mapState = state => {
   return {
     user: state.user,
     workouts: state.activity.userWorkouts,
+    activityTableData: state.activity.activityHistoryTableData,
   };
 };
 
@@ -106,8 +123,11 @@ const mapDispatch = dispatch => {
     async loadInitialData(userId) {
       await dispatch(getUserWorkouts(userId));
     },
-    async deleteActivity(id) {
-      await dispatch(deleteActivity(id))
+    async deleteUserActivity(id, userId) {
+      await dispatch(deleteActivity(id, userId));
+    },
+    async updateActivityHistoryTable(data) {
+      await dispatch(updateActivityHistoryTable(data));
     },
   };
 };

@@ -3,6 +3,17 @@ const { Activity, User } = require('../db/models');
 module.exports = router;
 
 router.get('/', async (req, res, next) => {
+  // only admin access can get all workouts
+  try {
+    const userWorkouts = await Activity.findAll({});
+    res.json(userWorkouts);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/group/:groupId', async (req, res, next) => {
+  // verify user making request is part of group
   try {
     const userWorkouts = await Activity.findAll({});
     res.json(userWorkouts);
@@ -13,6 +24,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:userId', async (req, res, next) => {
   try {
+    // add security token to browser & verify user requesting data is user currently logged in
     const userWorkouts = await Activity.findAll({
       where: {
         userId: req.params.userId,
@@ -24,32 +36,21 @@ router.get('/:userId', async (req, res, next) => {
   }
 });
 
+// will need to add challengeId
 router.post('/add/:userId', async (req, res, next) => {
   try {
     const body = req.body;
-    const userId = req.params.userId;
-    const bodyKeys = Object.keys(body);
-    if (
-      bodyKeys.length === 3 &&
-      bodyKeys.includes('dateFrom') &&
-      bodyKeys.includes('dateTo') &&
-      bodyKeys.includes('distance')
-    ) {
-      body.userId = userId;
-      const createdActivity = await Activity.create({
-        dateFrom: req.body.dateFrom,
-        dateTo: req.body.dateTo,
-        distance: req.body.distance,
-        userId: userId,
-      });
-      res.json(createdActivity);
-    }
+    body.userId = req.params.userId;
+    const createdActivity = await Activity.create(body);
+    res.json(createdActivity);
   } catch (err) {
     next(err);
   }
 });
 
 router.delete('/:id', async (req, res, next) => {
+  // add security token to browser & verify user requesting data is user currently logged in
+  // verify correct param is entered
   try {
     await Activity.destroy({
       where: { id: req.params.id },

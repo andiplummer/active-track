@@ -199,7 +199,7 @@ const formatUserDataForBarChart = (allUsers, allUserData) => {
 const sortAllUserDataByDate = userData => {
   return userData.sort(
     (a, b) =>
-      convertDateToTimestamp(a.dateFrom) - convertDateToTimestamp(b.dateFrom)
+      convertDateToTimestamp(a.date) - convertDateToTimestamp(b.date)
   );
 };
 

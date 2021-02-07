@@ -1,27 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Navbar, HeroStats, Chart } from './index';
+import {
+  Navbar,
+  HeroStats,
+  Chart,
+  RecordActivityForm,
+  FadeInAnimation,
+} from './index';
 import { getUserWorkouts, getAllUsers, getAllUserData } from '../store';
 
 class UserHome extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      isLoading: true
-    }
+      isLoading: true,
+    };
   }
 
   async componentDidMount() {
     await this.props.loadInitialData(this.props.user.id);
-    this.setState({ isLoading: false })
+    this.setState({ isLoading: false });
   }
 
   render() {
     return (
-      <div className="user-home-container">
+      <div>
         <Navbar />
-        <HeroStats userWorkouts={this.props.workouts} />
-        {this.state.isLoading === false ? <Chart /> : null}
+        {/* <HeroStats userWorkouts={this.props.workouts} /> */}
+        <FadeInAnimation duration={2000}>
+          <RecordActivityForm />
+        </FadeInAnimation>
+
+        {/* <div className="user-home-container">
+          {this.state.isLoading === false ? <Chart /> : null}
+        </div> */}
       </div>
     );
   }
@@ -32,16 +44,16 @@ const mapState = state => {
     user: state.user,
     allUsers: state.activity.allUsers,
     workouts: state.activity.userWorkouts,
-    allUserData: state.activity.allUserData
+    allUserData: state.activity.allUserData,
   };
 };
 
 const mapDispatch = dispatch => {
   return {
     async loadInitialData(userId) {
-      await dispatch(getAllUserData())
-      await dispatch(getUserWorkouts(userId))
-      await dispatch(getAllUsers())
+      await dispatch(getAllUserData());
+      await dispatch(getUserWorkouts(userId));
+      await dispatch(getAllUsers());
     },
   };
 };

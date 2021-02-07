@@ -2,18 +2,14 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Activity = db.define('activity', {
-  entryDate: {
-    type: Sequelize.INTEGER,
-    // allowNull: false
-  },
-  dateFrom: {
+  date: {
     type: Sequelize.STRING,
     allowNull: false,
     unique: false
   },
-  dateTo: {
+  time: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     unique: false
   },
   distance: {
