@@ -4,6 +4,7 @@ import { getUserWorkouts, addUserActivity, updateActivityHistoryTable } from '..
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { formatDate, getTodaysDate, currentDateTimeForCalDatePicker } from '../../utils/dateTimeUtils';
+import CheckIcon from '@material-ui/icons/Check';
 
 class RecordActivityForm extends React.Component {
   constructor(props) {
@@ -84,9 +85,9 @@ class RecordActivityForm extends React.Component {
 
       await this.props.updateActivityHistoryTable(this.props.workouts)
       
-      this.setState({ success: true })
-      this.setState(this.getDefaultState())
-      
+      this.setState({ success: !this.state.success }, () => setTimeout(() => {
+        this.setState(this.getDefaultState())
+      }, 500))
     } catch (error) {
       console.log(error);
       // inline error message with button to try again or contact support
@@ -138,7 +139,7 @@ class RecordActivityForm extends React.Component {
             onClick={this.handleSubmit}
             style={{
               backgroundColor: this.state.success
-                ? 'green'
+                ? '#8cb670'
                 : this.state.isDisabled
                 ? '#f0f0f0'
                 : '#303c6c',
@@ -146,9 +147,10 @@ class RecordActivityForm extends React.Component {
               height: '50px',
               fontSize: '1em',
               padding: '10px',
+              width: '100%',
             }}
           >
-            {this.state.success ? 'Nice Work!' : 'Add'}
+            {this.state.success ? <CheckIcon /> : 'Add'}
           </Button>
         </div>
       </div>

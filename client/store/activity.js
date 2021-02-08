@@ -8,6 +8,7 @@ export const GOT_USER_WORKOUTS = 'GOT_USER_WORKOUTS';
 export const ADDED_USER_ACTIVITY = 'ADDED_USER_ACTIVITY';
 export const DELETED_ACTIVITY = 'DELETED_ACTIVITY';
 export const UPDATED_ACTIVITY_HISTORY_TABLE = 'UPDATED_ACTIVITY_HISTORY_TABLE';
+export const DELETED_SUCCESSFULLY = 'DELETED_SUCCESSFULLY'
 
 export const clearedWorkoutState = () => ({
   type: CLEARED_WORKOUT_STATE,
@@ -42,6 +43,10 @@ export const updatedActivityHistoryTable = (data) => ({
   type: UPDATED_ACTIVITY_HISTORY_TABLE,
   data,
 });
+
+export const deletedSuccessfully = () => ({
+  type: DELETED_SUCCESSFULLY
+})
 
 export const clearWorkoutState = () => async dispatch => {
   try {
@@ -99,6 +104,7 @@ export const deleteActivity = (id, userId) => async dispatch => {
     await axios.delete(`/api/activity/${id}`);
     const { data } = await axios.get(`/api/activity/${userId}`);
     dispatch(deletedActivity(data));
+    dispatch(deletedSuccessfully())
   } catch (error) {
     console.log(error);
   }
@@ -124,6 +130,7 @@ export const updateActivityHistoryTable = userData => async dispatch => {
 
 // REDUCER
 const initialState = {
+  deletedSuccessfully: false,
   userWorkouts: [],
   activityHistoryTableData: [],
   allUsers: [],
@@ -147,6 +154,8 @@ export default function(state = initialState, action) {
       };
     case DELETED_ACTIVITY:
       return { ...state, userWorkouts: action.activity };
+    case DELETED_SUCCESSFULLY:
+      return {...state, deletedSuccessfully: true}
     case UPDATED_ACTIVITY_HISTORY_TABLE:
       return {...state, activityHistoryTableData: action.data}
     default:

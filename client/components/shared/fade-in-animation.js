@@ -10,22 +10,24 @@ const fadeIn = keyframes`
   }
 `;
 const FadeInAnimation = ({
-  duration = 2000,
-  delay = 250,
+  duration = 1500,
+  delay = 200,
   children,
   ...delegated
 }) => {
   return (
-    <Wrapper
-      {...delegated}
-      style={{
-        ...(delegated.style || {}),
-        animationDuration: duration + 'ms',
-        animationDelay: delay + 'ms',
-      }}
-    >
-      {children}
-    </Wrapper>
+    <div style={{width: '100%'}}>
+      <Wrapper
+        {...delegated}
+        style={{
+          ...(delegated.style || {}),
+          animationDuration: duration + 'ms',
+          animationDelay: delay + 'ms',
+        }}
+      >
+        {children}
+      </Wrapper>
+    </div>
   );
 };
 const Wrapper = styled.div`
@@ -34,4 +36,4 @@ const Wrapper = styled.div`
     animation-fill-mode: backwards;
   }
 `;
-export default FadeInAnimation
+export default FadeInAnimation;

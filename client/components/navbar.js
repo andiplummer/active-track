@@ -18,6 +18,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
         </Link>
       </div>
     </FadeInAnimation>
+    
     <Link to="/activity-log" className="nav-link">
       Activity Log
     </Link>
