@@ -67,10 +67,8 @@ class RecordActivityForm extends React.Component {
       !this.state.date ||
       !this.state.time
     ) {
-      console.log('state', this.state)
       this.setState({ isDisabled: true });
     } else {
-      console.log('state', this.state)
       this.setState({ isDisabled: false });
     }
   }
@@ -87,7 +85,7 @@ class RecordActivityForm extends React.Component {
       
       this.setState({ success: !this.state.success }, () => setTimeout(() => {
         this.setState(this.getDefaultState())
-      }, 500))
+      }, 1200))
     } catch (error) {
       console.log(error);
       // inline error message with button to try again or contact support

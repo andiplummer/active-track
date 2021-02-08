@@ -57,7 +57,6 @@ const AuthForm = props => {
             )}
           </div>
           <div className="login-error-response">
-            {console.log('props name', {props: props.name})}
             {(props.name === 'login' && error && error.response) ? error.response.data : ''}{' '}
           </div>
           <div className="signup-error-response"></div>

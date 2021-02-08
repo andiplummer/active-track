@@ -80,7 +80,7 @@ const DropdownMenu = ({
         open={Boolean(anchorEl)}
         onClose={() => handleClose()}
       >
-        <MenuItem onClick={() => deleteUserActivity(rowId, user.id).then(() => handleClose())}>
+        <MenuItem onClick={() => deleteUserActivity(rowId, user.id)}>
           Delete
           {/* <Button
             className={buttonStyles.button}

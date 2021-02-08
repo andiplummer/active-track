@@ -18,7 +18,6 @@ const Chart = props => {
       data: getTargetActivityData(),
     },
   ]
-  console.log('data', lineChartData)
 
   const firstDataPoint = props.myActivity.length ? Object.keys(lineChartData[1].data)[0] : null;
 

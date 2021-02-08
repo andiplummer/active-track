@@ -155,7 +155,7 @@ export default function(state = initialState, action) {
     case DELETED_ACTIVITY:
       return { ...state, userWorkouts: action.activity };
     case DELETED_SUCCESSFULLY:
-      return {...state, deletedSuccessfully: true}
+      return {...state, deletedSuccessfully: !state.deletedSuccessfully}
     case UPDATED_ACTIVITY_HISTORY_TABLE:
       return {...state, activityHistoryTableData: action.data}
     default:
