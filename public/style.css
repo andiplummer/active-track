@@ -183,10 +183,6 @@ body {
   width: 100%;
 }
 
-.left-nav {
-  width: 100%;
-}
-
 .nav h1 {
   font-size: 3em;
   color: #b4dfe5;
@@ -581,6 +577,7 @@ table .action-column-header {
 
   .login-container {
     background-color: #303c6c;
+    font-family: "mom-cake-thin";
   }
 
   .login-container .active-style {
@@ -616,6 +613,7 @@ table .action-column-header {
 
   .login-container button {
     width: 300px;
+    font-family: "mom-cake-thin";
   }
 
   .login-error-response {
@@ -636,17 +634,22 @@ table .action-column-header {
     height: 60px;
     padding-left: 10px;
     padding-right: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    width: 100%;
   }
 
   .nav h1 {
-    width: 200px;
     display: flex;
     flex-direction: row;
   }
 
   .nav .active-style {
     font-size: 0.5em;
-    width: 105px;
+    /* width: 105px; */
   }
 
   .nav .track-style {
@@ -654,7 +657,11 @@ table .action-column-header {
   }
 
   .header-link {
-    width: 160px;
+    width: 100%;
+  }
+
+  .left-nav {
+    width: 100%;
   }
 
   .logout-container {
@@ -730,8 +737,7 @@ table .action-column-header {
     margin-left: 5%;
     background-color: white;
     margin-top: 30px;
-    height: 200px;
-    padding-right: 20px;
+    height: 220px;
     border: 1px solid #e4e4e4;
     border-radius: 5pxrgb (34, 24, 24);
     animation: 'fadeIn ease 20s';
@@ -742,6 +748,8 @@ table .action-column-header {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    width: 100%;
+    margin: 0px;
   }
 
   .date-input-container {
@@ -751,9 +759,12 @@ table .action-column-header {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-left: 5%;
     margin-top: 15px;
     font-size: 1em;
+  }
+
+  .date-input-container div {
+    width: 100%;
   }
 
   .input-container {
@@ -763,8 +774,19 @@ table .action-column-header {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-left: 5%;
+    margin-top: 15px;
+    font-size: 1em;
+    margin-bottom: 20px;
   }
+
+  .input-container div {
+    width: 100%;
+    margin: 0px;
+  }
+
+  .input-container #distance-input {
+    width: 100%;
+  } 
 
   .add-activity-container .button-container {
     width: 90%;
@@ -775,31 +797,11 @@ table .action-column-header {
   .MuiButton-label {
     font-family: 'sofia-pro-regular';
     font-size: 0.8em;
+    width: 100%
   }
 
-  .add-new-activity-form-container .input-container form {
-    width: 150px;
-    height: 75px;
-  }
-
-  .dropdown-menu-container {
-    max-width: 200px !important;
-  }
-
-  .MuiPaper-root
-    .MuiMenu-paper
-    .MuiPopover-paper
-    .MuiPaper-elevation8
-    .MuiPaper-rounded {
-    max-width: 150px;
-  }
-
-  .MuiMenu-paper {
-    max-width: 150px;
-    outline: 0;
-    position: absolute;
-    overflow-x: hidden;
-    overflow-y: auto;
+  .MuiFormControl-root .MuiTextField-root {
+    width: 100%;
   }
 
   #delete-activity-button {
@@ -841,22 +843,5 @@ table .action-column-header {
   .totals h1 {
     font-family: 'mom-cake-bold';
     text-align: center;
-  }
-
-  .activity-log-container {
-    width: 95%;
-    margin-left: 2.5%;
-  }
-
-  .input-container {
-    margin-top: -5%;
-    margin-left: 2%;
-    width: 20%;
-  }
-
-  .icon-container {
-    margin-top: -2%;
-    margin-left: 2%;
-    width: 20%;
   }
 }

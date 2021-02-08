@@ -116,6 +116,7 @@ class RecordActivityForm extends React.Component {
           <form className="input-container">
             <TextField
               required
+              id="distance-input"
               label="Distance"
               value={this.state.distance ? this.state.distance : ''}
               onChange={this.onUpdateDistance}
@@ -124,7 +125,7 @@ class RecordActivityForm extends React.Component {
                 shrink: true,
               }}
               inputProps={{
-                style: {fontSize: 14} 
+                style: {fontSize: 14 } 
               }}
             />
           </form>
