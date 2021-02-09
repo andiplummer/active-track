@@ -6,34 +6,69 @@ import {
   Chart,
   RecordActivityForm,
   FadeInAnimation,
+  ActivityNavTabs,
+  Leaderboard,
 } from './index';
-import { getUserWorkouts, getAllUsers, getAllUserData } from '../store';
+import {
+  getActivityForCurrentUser,
+  getActivityForAllUsers,
+  getChallengeLeaderboardData,
+  getActivityHistoryTableData,
+} from '../store';
 
 class UserHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
+      initialLoadComplete: false,
+      chartDataLoaded: false,
+      tableDataLoaded: false,
     };
   }
 
   async componentDidMount() {
+    console.log('this.props', this.props)
     await this.props.loadInitialData(this.props.user.id);
-    this.setState({ isLoading: false });
+    this.setState({ initialLoadComplete: true });
+    await this.props.loadChallengeLeaderboardData(this.props.activity.allUsers);
+    this.setState({ chartDataLoaded: true });
+    await this.props.loadActivityHistoryTableData(
+      this.props.activity.currentUser
+    );
+    this.setState({ tableDataLoaded: true });
   }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if ((this.props.activity.currentUser !== prevProps.activity.currentUser) || (this.props.chartData.leaderboard !== prevProps.chartData.leaderboard)) {
+
+  //   }
+  // }
 
   render() {
     return (
       <div>
         <Navbar />
-        {/* <HeroStats userWorkouts={this.props.workouts} /> */}
-        <FadeInAnimation duration={2000}>
-          <RecordActivityForm />
-        </FadeInAnimation>
-
-        {/* <div className="user-home-container">
-          {this.state.isLoading === false ? <Chart /> : null}
-        </div> */}
+        <div className="user-home-container">
+          <FadeInAnimation duration={2000}>
+            <RecordActivityForm />
+            <div className="row-container">
+              {this.state.tableDataLoaded &&
+              Object.keys(this.props.tableData.activityHistory).length ? (
+                <ActivityNavTabs />
+              ) : null}
+              {this.state.chartDataLoaded &&
+              this.props.chartData.leaderboard.length ? (
+                <Leaderboard
+                // leaderboardData={this.props.chartData.leaderboard}
+                />
+              ) : (
+                'no data'
+              )}
+            </div>
+          </FadeInAnimation>
+          {/* <HeroStats userWorkouts={this.props.workouts} /> */}
+          {/* {this.state.isLoading === false ? <Chart /> : null} */}
+        </div>
       </div>
     );
   }
@@ -41,19 +76,38 @@ class UserHome extends React.Component {
 
 const mapState = state => {
   return {
-    user: state.user,
-    allUsers: state.activity.allUsers,
-    workouts: state.activity.userWorkouts,
-    allUserData: state.activity.allUserData,
+    user: state.user.user,
+    activity: {
+      currentUser: state.activity.currentUser,
+      allUsers: state.activity.allUsers,
+    },
+    tableData: {
+      activityHistory: state.activity.tableData.activityHistory,
+    },
+    chartData: {
+      leaderboard: state.activity.chartData.leaderboard,
+      monthlyPerformance: state.activity.chartData.monthlyPerformance,
+    },
   };
 };
 
 const mapDispatch = dispatch => {
   return {
-    async loadInitialData(userId) {
-      await dispatch(getAllUserData());
-      await dispatch(getUserWorkouts(userId));
-      await dispatch(getAllUsers());
+    async loadInitialData() {
+      await dispatch(getActivityForAllUsers());
+      await dispatch(getActivityForCurrentUser(userId));
+    },
+    // async loadCurrentUserActivityData(userId) {
+    //   await dispatch(getActivityForCurrentUser(userId));
+    // },
+    async loadAllUserActivityData() {
+      await dispatch(getActivityForAllUsers());
+    },
+    async loadChallengeLeaderboardData(data) {
+      await dispatch(getChallengeLeaderboardData(data));
+    },
+    async loadActivityHistoryTableData(data) {
+      await dispatch(getActivityHistoryTableData(data));
     },
   };
 };

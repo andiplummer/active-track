@@ -4,10 +4,13 @@
  * having to figure out which file they belong to!
  */
 export {default as Navbar} from './navbar'
+export {default as Footer} from './footer'
+export {default as ActivityNavTabs} from './landing/interactive-tab-panel'
 export {default as UserHome} from './user-home'
+export {default as Leaderboard} from './landing/leaderboard'
 export {default as Chart} from './perf-chart'
 export {default as RecordActivityForm} from './record-activity-form'
-export {default as ActivityHistoryTable} from './activity-history'
+export {default as ActivityHistoryTable} from './landing/activity-history'
 export {default as FadeInAnimation} from './shared/fade-in-animation'
 export {default as DropdownMenu} from './shared/dropdown-menu'
 export {default as ArrowIcon} from './shared/dropdown-menu'

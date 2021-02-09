@@ -1,7 +1,10 @@
 const User = require('./user')
 const Activity = require('./activity')
 
-Activity.belongsTo(User);
+// User.belongsToMany(Activity, { through: 'userId' });
+User.hasMany(Activity)
+Activity.belongsTo(User)
+// User.belongsTo(Activity);
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:

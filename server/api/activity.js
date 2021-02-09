@@ -12,6 +12,20 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/all/grouped-by-user', async (req, res, next) => {
+  try {
+    const userWorkouts = await User.findAll({
+      include: [{
+        model: Activity,
+        as: 'activities'
+          }],
+    })
+    res.json(userWorkouts)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.get('/group/:groupId', async (req, res, next) => {
   // verify user making request is part of group
   try {

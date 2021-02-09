@@ -1,9 +1,11 @@
+const { default: activity } = require('../client/store/activity');
 const {
   getCurrentYear,
   getCurrentMonth,
   getCurrentWeekOfYear,
   getWeekOfInputDate,
   convertDateToTimestamp,
+  formatDate,
 } = require('../utils/dateTimeUtils');
 
 const getYtdMiles = userWorkouts => {

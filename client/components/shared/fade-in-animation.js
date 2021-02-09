@@ -10,8 +10,8 @@ const fadeIn = keyframes`
   }
 `;
 const FadeInAnimation = ({
-  duration = 1500,
-  delay = 200,
+  duration = 500,
+  delay = 100,
   children,
   ...delegated
 }) => {

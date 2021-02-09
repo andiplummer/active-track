@@ -4,8 +4,24 @@ const {
   convertDateToTimestamp,
   getNumOfDaysInMonth,
   getTodaysDate,
+  formatDate
 } = require('../utils/dateTimeUtils');
 const { formatDistance, getMtdMiles } = require('../utils/distanceUtils');
+
+const getTotalDistanceInMonthOfInputDate = (userActivityData, date) => {
+  let totalDistance = 0;
+  const currentMonth = date ? formatDate(date, 'MM') : formatDate(getTodaysDate(), 'MM')
+
+  userActivityData.forEach(activity => {
+    const activityMonth = formatDate(activity.date, 'MM')
+
+    if (activityMonth === currentMonth) {
+      totalDistance += activity.distance
+    }
+  })
+
+  return totalDistance
+}
 
 const getTargetActivityData = () => {
   const numOfDaysInMonth = getNumOfDaysInMonth();
@@ -41,7 +57,7 @@ const formatCurrentMonthSingleParticipantDataForLineChart = singleUserWorkoutDat
 
   const todaysDate = getTodaysDate('YYYY-MM-DD');
   const currentMonth = getCurrentMonth();
-  const firstOfMonthDate = `${getCurrentYear()}-${currentMonth}-01`
+  const firstOfMonthDate = `${getCurrentYear()}-${currentMonth}-01`;
 
   const dataForCurrentMonth = singleUserWorkoutData
     .filter(
@@ -57,88 +73,98 @@ const formatCurrentMonthSingleParticipantDataForLineChart = singleUserWorkoutDat
   let previousTotal = 0;
 
   dataForCurrentMonth.forEach((dataPoint, index) => {
-    const currentDateFrom = dataPoint.dateFrom
-    const currentDateTo = dataPoint.dateTo
+    const currentDateFrom = dataPoint.dateFrom;
+    const currentDateTo = dataPoint.dateTo;
     // if there is only one entry
     if (dataForCurrentMonth.length === 1) {
       if (currentDateFrom !== firstOfMonthDate) {
         formattedData[firstOfMonthDate] = 0;
         formattedData[currentDateFrom] = 0;
 
-        formattedTargetData[firstOfMonthDate] = targetData[firstOfMonthDate]
-        formattedTargetData[currentDateFrom] = targetData[currentDateFrom]
+        formattedTargetData[firstOfMonthDate] = targetData[firstOfMonthDate];
+        formattedTargetData[currentDateFrom] = targetData[currentDateFrom];
       }
-      
-      if (currentDateFrom === firstOfMonthDate && currentDateTo === firstOfMonthDate) {
-        formattedData[firstOfMonthDate] = dataPoint.distance
-        previousTotal += dataPoint.distance
+
+      if (
+        currentDateFrom === firstOfMonthDate &&
+        currentDateTo === firstOfMonthDate
+      ) {
+        formattedData[firstOfMonthDate] = dataPoint.distance;
+        previousTotal += dataPoint.distance;
         previousTotal = formatDistance(previousTotal);
 
-        formattedTargetData[firstOfMonthDate] = targetData[firstOfMonthDate]
-      } else if (currentDateFrom === firstOfMonthDate && currentDateTo === todaysDate) {
-        formattedData[firstOfMonthDate] = 0
-        formattedData[todaysDate] = dataPoint.distance
-        previousTotal += dataPoint.distance
+        formattedTargetData[firstOfMonthDate] = targetData[firstOfMonthDate];
+      } else if (
+        currentDateFrom === firstOfMonthDate &&
+        currentDateTo === todaysDate
+      ) {
+        formattedData[firstOfMonthDate] = 0;
+        formattedData[todaysDate] = dataPoint.distance;
+        previousTotal += dataPoint.distance;
         previousTotal = formatDistance(previousTotal);
 
-        formattedTargetData[firstOfMonthDate] = targetData[firstOfMonthDate]
-        formattedTargetData[todaysDate] = targetData[todaysDate]
-      } else if (currentDateFrom === firstOfMonthDate && currentDateTo !== todaysDate) {
-        formattedData[firstOfMonthDate] = 0
-        formattedData[currentDateTo] = dataPoint.distance
-        formattedData[todaysDate] = dataPoint.distance
-        previousTotal += dataPoint.distance
+        formattedTargetData[firstOfMonthDate] = targetData[firstOfMonthDate];
+        formattedTargetData[todaysDate] = targetData[todaysDate];
+      } else if (
+        currentDateFrom === firstOfMonthDate &&
+        currentDateTo !== todaysDate
+      ) {
+        formattedData[firstOfMonthDate] = 0;
+        formattedData[currentDateTo] = dataPoint.distance;
+        formattedData[todaysDate] = dataPoint.distance;
+        previousTotal += dataPoint.distance;
         previousTotal = formatDistance(previousTotal);
 
-        formattedTargetData[firstOfMonthDate] = targetData[firstOfMonthDate]
-        formattedTargetData[currentDateTo] = targetData[currentDateTo]
-        formattedTargetData[todaysDate] = targetData[todaysDate]
+        formattedTargetData[firstOfMonthDate] = targetData[firstOfMonthDate];
+        formattedTargetData[currentDateTo] = targetData[currentDateTo];
+        formattedTargetData[todaysDate] = targetData[todaysDate];
       }
-      
+
       if (currentDateTo !== todaysDate) {
-        formattedData[currentDateTo] = previousTotal
-        formattedData[todaysDate] = previousTotal
+        formattedData[currentDateTo] = previousTotal;
+        formattedData[todaysDate] = previousTotal;
 
-        formattedTargetData[currentDateTo] = targetData[currentDateTo]
-        formattedTargetData[todaysDate] = targetData[todaysDate]
+        formattedTargetData[currentDateTo] = targetData[currentDateTo];
+        formattedTargetData[todaysDate] = targetData[todaysDate];
       }
 
       if (currentDateTo === todaysDate) {
-        formattedData[todaysDate] = previousTotal
-        formattedTargetData[todaysDate] = targetData[todaysDate]
+        formattedData[todaysDate] = previousTotal;
+        formattedTargetData[todaysDate] = targetData[todaysDate];
       }
     } else {
       // if there is more than one entry
       if (index === 0 && dataPoint.dateFrom !== firstOfMonthDate) {
-        formattedData[firstOfMonthDate] = 0
-        formattedTargetData[firstOfMonthDate] = targetData[firstOfMonthDate]
+        formattedData[firstOfMonthDate] = 0;
+        formattedTargetData[firstOfMonthDate] = targetData[firstOfMonthDate];
       }
       if (
         index === dataForCurrentMonth.length - 1 &&
         dataPoint.dateTo !== todaysDate
-      ) {  
+      ) {
         formattedData[currentDateFrom] = previousTotal;
         formattedTargetData[currentDateFrom] = targetData[currentDateFrom];
         previousTotal += dataPoint.distance;
         previousTotal = formatDistance(previousTotal);
-        formattedData[currentDateTo] = previousTotal
-        formattedTargetData[currentDateTo] = targetData[currentDateTo]
+        formattedData[currentDateTo] = previousTotal;
+        formattedTargetData[currentDateTo] = targetData[currentDateTo];
         formattedData[todaysDate] = previousTotal;
         formattedTargetData[todaysDate] = targetData[todaysDate];
       } else if (currentDateFrom !== currentDateTo) {
-        formattedData[currentDateFrom] = previousTotal
-        previousTotal += dataPoint.distance
+        formattedData[currentDateFrom] = previousTotal;
+        previousTotal += dataPoint.distance;
         previousTotal = formatDistance(previousTotal);
-        formattedData[currentDateTo] = previousTotal
+        formattedData[currentDateTo] = previousTotal;
 
-        formattedTargetData[currentDateFrom] = targetData[currentDateFrom]
-        formattedTargetData[currentDateTo] = targetData[currentDateTo]
+        formattedTargetData[currentDateFrom] = targetData[currentDateFrom];
+        formattedTargetData[currentDateTo] = targetData[currentDateTo];
       } else if (currentDateFrom === currentDateTo) {
         formattedData[dataPoint.dateFrom] = previousTotal;
         previousTotal += dataPoint.distance;
         previousTotal = formatDistance(previousTotal);
-        formattedData[currentDateTo] = previousTotal
-        formattedTargetData[dataPoint.dateFrom] = targetData[dataPoint.dateFrom];
+        formattedData[currentDateTo] = previousTotal;
+        formattedTargetData[dataPoint.dateFrom] =
+          targetData[dataPoint.dateFrom];
       }
     }
   });
@@ -157,7 +183,7 @@ const formatCurrentMonthSingleParticipantDataForLineChart = singleUserWorkoutDat
 
 const formatAllUserDataForLineChart = (allUsers, allUserData) => {
   const lineChartData = [];
-  const userIdsInAllUserData = Object.keys(allUserData)
+  const userIdsInAllUserData = Object.keys(allUserData);
 
   userIdsInAllUserData.forEach(userId => {
     const userDetails = allUsers.find(user => user.id === Number(userId));
@@ -173,33 +199,35 @@ const formatAllUserDataForLineChart = (allUsers, allUserData) => {
 };
 
 const formatUserDataForBarChart = (allUsers, allUserData) => {
-  const barChartData = [];
-  const userIdsInAllUserData = Object.keys(allUserData);
+  if (allUsers && allUserData) {
+    const barChartData = [];
+    const userIdsInAllUserData = Object.keys(allUserData);
 
-  userIdsInAllUserData.forEach(userId => {
-    const userDetails = allUsers.find(user => user.id === Number(userId));
-
-    const userData = allUserData[userId];
-    barChartData.push({
-      name: userDetails.firstName,
-      miles: getMtdMiles(userData),
+    userIdsInAllUserData.forEach(userId => {
+      const userDetails = allUsers.find(user => user.id === Number(userId));
+      console.log('user details', userDetails);
+      if (allUserData[userId]) {
+        const userData = allUserData[userId];
+        barChartData.push({
+          name: userDetails.firstName,
+          miles: getMtdMiles(userData),
+        });
+      }
     });
-  });
+    const sortedBarChartData = barChartData.sort((a, b) => b.miles - a.miles);
 
-  const sortedBarChartData = barChartData.sort((a, b) => b.miles - a.miles);
+    const formattedBarChartData = [];
+    sortedBarChartData.forEach(dataPoint =>
+      formattedBarChartData.push([dataPoint.name, dataPoint.miles])
+    );
 
-  const result = [];
-  sortedBarChartData.forEach(dataPoint =>
-    result.push([dataPoint.name, dataPoint.miles])
-  );
-
-  return result;
+    return formattedBarChartData;
+  }
 };
 
 const sortAllUserDataByDate = userData => {
   return userData.sort(
-    (a, b) =>
-      convertDateToTimestamp(a.date) - convertDateToTimestamp(b.date)
+    (a, b) => convertDateToTimestamp(a.date) - convertDateToTimestamp(b.date)
   );
 };
 
@@ -209,4 +237,5 @@ module.exports = {
   formatUserDataForBarChart,
   getTargetActivityData,
   sortAllUserDataByDate,
+  getTotalDistanceInMonthOfInputDate
 };

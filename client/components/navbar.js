@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
-import { clearWorkoutState } from '../store';
+// import { clearState } from '../store';
 import { FadeInAnimation } from './index';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
@@ -44,7 +44,7 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout());
-      dispatch(clearWorkoutState());
+      // dispatch(clearState());
     },
   };
 };

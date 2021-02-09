@@ -4,23 +4,16 @@ const getCurrentTime = () => moment().format('LT');
 
 const getCurrentYear = () => moment().year();
 
-const getCurrentMonth = () => {
-  // moment returns index of month from 0 - 11
-  const currentMonth = String(moment().month() + 1);
-
-  if (currentMonth.length < 2) {
-    return `0${currentMonth}`;
-  }
-
-  return currentMonth;
-};
+const getCurrentMonth = (outputFormat) => {
+  return moment().format(outputFormat)
+}
 
 const getCurrentWeekOfYear = () => moment().week();
 
 const getWeekOfInputDate = (date, inputFormat) =>
   moment(date, inputFormat).week();
 
-const getTodaysDate = (outputFormat) => {
+const getTodaysDate = (outputFormat = 'YYYY-MM-DD') => {
   return moment().format(outputFormat)
 };
 
@@ -28,7 +21,8 @@ const formatDate = (
   date,
   outputFormat = 'YYYY-MM-DD'
 ) => {
-  return moment(date).format(outputFormat);
+  const result = moment(date).format(outputFormat);
+  return result
 };
 
 const convertDateToTimestamp = date => moment(date, 'YYYY-MM-DD').unix();

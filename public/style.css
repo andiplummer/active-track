@@ -1,6 +1,6 @@
-/* html {
-  width: 100%;
-} */
+html {
+  min-height: 100vh;
+}
 
 /* *, *:before, *:after {
   box-sizing: inherit;
@@ -30,14 +30,15 @@
 }
 
 body {
-  /* background-color: #fdf8f5; */
-  background-color: #f0f0f0;
+  background-color: #fdf8f5;
+  /* background-color: #1f2849; */
   width: 100%;
 
 }
 
 .active-style {
-  color: #303c6c;
+  /* color: #303c6c; */
+  color: white;
   font-family: 'mom-cake-bold';
 }
 
@@ -150,12 +151,43 @@ body {
   height: 15px;
 }
 
-.user-home-container {
-  width: 90%;
-  margin-left: 5%;
+#footer-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #303c6c;
+  color: white;
+  padding: 30px;
+}
+
+#footer-container h6 {
+  color: white;
+  font-size: 1.1em;
+  font-family: "mom-cake-thin";
+}
+
+#footer-container a {
+  color: white;
+  font-family: "sofia-pro-regular";
+  font-size: 0.8em;
+  padding-bottom: 5px;
+}
+
+#grid-container {
   display: flex;
-  flex-direction: column;
-  padding-bottom: 200px;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 90px;
+}
+
+#icon-category {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+#icon-category svg {
+  margin-right: 2px;
 }
 
 .nav {
@@ -163,9 +195,9 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-left: 30px;
-  padding-right: 30px;
-  background-color: white;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+  background-color: #1f2849;
   width: 100%;
   height: 75px;
 }
@@ -184,7 +216,7 @@ body {
 }
 
 .nav h1 {
-  font-size: 3em;
+  font-size: 2em;
   color: #b4dfe5;
 }
 
@@ -205,10 +237,10 @@ body {
 }
 
 .nav-link {
-  color: #4f4846;
+  color: white;
   font-size: 1.25em;
   text-decoration: none;
-  font-size: 1.2em;
+  font-size: 1.1em;
   width: 145px;
   height: 40px;
   text-align: center;
@@ -230,70 +262,59 @@ body {
 .logout-link {
   color: white;
   text-decoration: none;
-  font-size: 1.2em;
+  font-size: 1.1em;
   width: 75px;
   text-align: center;
   font-family: 'mom-cake-thin';
 }
 
-.hero-stats {
-  width: 100%;
-  background-color: #b4dfe5;
-  background-color: #303c6c;
-  color: white;
-  height: 150px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  padding-top: 30px;
-}
+/* ///////// LANDING PAGE LEADERBOARD - DESKTOP ///////// */
 
-/* ///////// ACTIVITY STAT-CONTAINER - DESKTOP ///////// */
-
-.stat-container {
+.user-home-container {
+  width: 90%;
+  min-height: 100vh;
+  position: relative;
+  margin-left: 5%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  width: 200px;
 }
 
-.stat-container h2 {
-  font-family: 'mom-cake-thin';
-  font-size: 2em;
-  /* color: #4f4846; */
-  color: white;
-}
-
-.stat-container h1 {
-  font-family: 'mom-cake-bold';
-  font-size: 3em;
-  /* color: #4f4846; */
-  color: white;
-}
-
-.stat-container h4 {
-  color: white;
-  font-family: 'mom-cake-thin';
-  font-size: 1em;
-  margin-bottom: 10px;
-  letter-spacing: 2px;
-  width: 200px;
-}
-
-.hero-mile-count {
-  color: white;
+.user-home-container .row-container {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-end;
-  width: 200px;
+  justify-content: space-between;
+  padding-bottom: 30px;
+  height: 100%;
 }
 
-.vl {
-  border-left: 2px solid white;
-  height: 110px;
-  width: 5px;
-  margin-top: -10px;
+/* ///////// LANDING PAGE LEADERBOARD - DESKTOP ///////// */
+
+.leaderboard {
+  width: 40%;
+  margin-left: 2.5%;
+  background-color: white;
+  padding-right: 2.5%;
+  padding-bottom: 20px;
+  height: 500px;
+}
+
+.leaderboard .header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 48px;
+}
+
+.leaderboard h1 {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  text-align: left;
+  color: #a0a0a0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+  font-size: 0.9em;
+  margin-left: 15%;
+
 }
 
 /* ///////// LANDING PAGE PERFORMANCE CHART - DESKTOP ///////// */
@@ -305,6 +326,20 @@ body {
   margin-top: 50px;
   width: 100%;
   margin-left: 1%;
+  height: 100%;
+}
+
+#simple-tab-0 {
+  width: 200px;
+  font-size: 0.8em;
+}
+
+#simple-tab-1 {
+  font-size: 0.8em;
+}
+
+#simple-tab-2 {
+  font-size: 0.8em;
 }
 
 .chart-header {
@@ -319,7 +354,7 @@ body {
   font-family: 'mom-cake-bold';
   font-size: 2em;
   width: 300px;
-  color: #4f4846;
+  color: #f7c1a8;
 }
 
 .chart-header h2 {
@@ -346,31 +381,16 @@ body {
   padding-left: 5%;
 }
 
-/* ///////// LANDING PAGE LEADERBOARD - DESKTOP ///////// */
-
-.leaderboard {
-  width: 30%;
-  padding-right: 3%;
-  margin-top: 5px;
-}
-
-.leaderboard h1 {
-  font-family: 'mom-cake-bold';
-  text-align: center;
-  color: #4f4846;
-  margin-bottom: 10px;
-}
-
 /* ///////// ADD ACTIVITY FORM - DESKTOP ///////// */
 .add-activity-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
-  margin-left: 5%;
+  width: 100%;
   background-color: white;
   margin-top: 30px;
+  margin-bottom: 30px;
   height: 85px;
   padding-right: 20px;
   border: 1px solid #e4e4e4;

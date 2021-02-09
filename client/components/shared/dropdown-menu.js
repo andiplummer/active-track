@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useDownloadMenuStyles } from '@mui-treasury/styles/menu/download';
 import { useGithubBtnStyles } from '@mui-treasury/styles/button/github';
@@ -9,13 +9,12 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
 import {
-  getUserWorkouts,
+  getUserActivityData,
   deleteActivity,
   updateActivityHistoryTable,
 } from '../../store';
 import { makeStyles } from '@material-ui/core';
 
-// ...
 
 const useStyles = makeStyles({
     customWidth: {
@@ -37,12 +36,6 @@ const DropdownMenu = ({
 
   const downloadMenuClasses = useDownloadMenuStyles();
   const buttonStyles = useGithubBtnStyles()
-
-  // useEffect(function handleDeleteActivity() {
-  //   if (!deleted) {
-  //     deleteUserActivity(rowId, user.id);
-  //   }
-  // });
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -112,7 +105,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     async loadInitialData(userId) {
-      await dispatch(getUserWorkouts(userId));
+      await dispatch(getUserActivityData(userId));
     },
     async deleteUserActivity(id, userId) {
       await dispatch(deleteActivity(id, userId));

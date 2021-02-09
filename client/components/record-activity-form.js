@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getUserWorkouts, addUserActivity, updateActivityHistoryTable } from '../store';
+import { getUserActivityData, addActivityData, updateActivityHistoryTable } from '../store';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { formatDate, getTodaysDate, currentDateTimeForCalDatePicker } from '../../utils/dateTimeUtils';
-import CheckIcon from '@material-ui/icons/Check';
+import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 
 class RecordActivityForm extends React.Component {
   constructor(props) {
@@ -149,7 +149,7 @@ class RecordActivityForm extends React.Component {
               width: '100%',
             }}
           >
-            {this.state.success ? <CheckIcon /> : 'Add'}
+            {this.state.success ? <DoneOutlineIcon /> : 'Record Activity'}
           </Button>
         </div>
       </div>
@@ -168,7 +168,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     async loadInitialData(userId) {
-      await dispatch(getUserWorkouts(userId));
+      await dispatch(getUserActivityData(userId));
     },
     async addNewActivity(userId, body) {
       await dispatch(addUserActivity(userId, body));
