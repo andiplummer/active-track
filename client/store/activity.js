@@ -19,6 +19,8 @@ export const addActivityData = (userId, body) => async dispatch => {
   try {
     const { data } = await axios.post(`/api/activity/add/${userId}`, body);
     dispatch(addedActivityData(data));
+    const res = await axios.get(`/api/activity/${userId}`);
+    dispatch(getActivityHistoryTableData(res.data))
   } catch (error) {
     console.log(error);
   }
@@ -44,10 +46,11 @@ export const getActivityForAllUsers = () => async dispatch => {
 
 export const deleteActivity = (id, userId) => async dispatch => {
   try {
+    console.log('id', id)
     await axios.delete(`/api/activity/${id}`);
     const { data } = await axios.get(`/api/activity/${userId}`);
     dispatch(deletedActivity(data));
-    dispatch(deletedSuccessfully())
+    dispatch(getActivityHistoryTableData(data))
   } catch (error) {
     console.log(error);
   }
@@ -55,7 +58,6 @@ export const deleteActivity = (id, userId) => async dispatch => {
 
 export const getActivityHistoryTableData = userData => async dispatch => {
   try {
-    console.log('input', userData)
     const sortedData = sortAllUserDataByDate(userData).reverse();
     const data = sortedData.map(dataPoint => {
       return {
@@ -66,6 +68,7 @@ export const getActivityHistoryTableData = userData => async dispatch => {
         action: 'action',
       }
     })
+
     console.log('data', data)
     dispatch(gotActivityHistoryTableData(data))
   } catch (error) {
@@ -75,6 +78,7 @@ export const getActivityHistoryTableData = userData => async dispatch => {
 
 export const getChallengeLeaderboardData = (allUserActivityData) => async dispatch => {
   try {
+    console.log('all user activiyy', allUserActivityData)
     const leaderboardData = []
     const userIds = Object.keys(allUserActivityData)
   

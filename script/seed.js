@@ -15,12 +15,12 @@ async function seed() {
   ])
 
   await Promise.all([
-    Activity.create({dateFrom: '2021-01-01', dateTo: '2021-01-01', distance: 5.17, userId: 1 }),
-    Activity.create({dateFrom: '2021-01-01', dateTo: '2021-01-01', distance: 5.17, userId: 1 }),
-    Activity.create({dateFrom: '2021-01-01', dateTo: '2021-01-01', distance: 5.17, userId: 1 }),
-    Activity.create({dateFrom: '2021-01-01', dateTo: '2021-01-01', distance: 5.17, userId: 1 }),
-    Activity.create({dateFrom: '2021-01-01', dateTo: '2021-01-01', distance: 5.17, userId: 1 }),
-    Activity.create({dateFrom: '2021-01-01', dateTo: '2021-01-01', distance: 5.17, userId: 1 }),
+    Activity.create({date: '2021-02-01', distance: 3.2, userId: 1 }),
+    Activity.create({date: '2021-02-02', distance: 5.17, userId: 1 }),
+    Activity.create({date: '2021-02-03', distance: 4.1, userId: 1 }),
+    Activity.create({date: '2021-02-04', distance: 2.8, userId: 1 }),
+    Activity.create({date: '2021-02-05', distance: 3.7, userId: 1 }),
+    Activity.create({date: '2021-02-06', distance: 5.3, userId: 1 }),
   ])
 
   // await Promise.all([

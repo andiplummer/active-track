@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getUserActivityData, addActivityData, updateActivityHistoryTable } from '../store';
+import { getActivityForCurrentUser, addActivityData, getActivityHistoryTableData } from '../store';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { formatDate, getTodaysDate, currentDateTimeForCalDatePicker } from '../../utils/dateTimeUtils';
@@ -160,21 +160,30 @@ class RecordActivityForm extends React.Component {
 const mapState = state => {
   return {
     user: state.user,
-    workouts: state.activity.userWorkouts,
-    activityTableData: state.activity.activityHistoryTableData
+    activity: {
+      currentUser: state.activity.currentUser,
+      allUsers: state.activity.allUsers,
+    },
+    tableData: {
+      activityHistory: state.activity.tableData.activityHistory,
+    },
+    chartData: {
+      leaderboard: state.activity.chartData.leaderboard,
+      monthlyPerformance: state.activity.chartData.monthlyPerformance,
+    },
   };
 };
 
 const mapDispatch = dispatch => {
   return {
     async loadInitialData(userId) {
-      await dispatch(getUserActivityData(userId));
+      await dispatch(getActivityForCurrentUser(userId));
     },
     async addNewActivity(userId, body) {
-      await dispatch(addUserActivity(userId, body));
+      await dispatch(addActivityData(userId, body));
     },
     async updateActivityHistoryTable(data) {
-      await dispatch(updateActivityHistoryTable(data))
+      await dispatch(getActivityHistoryTableData(data))
     }
   };
 };

@@ -137,3 +137,4 @@ AuthForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.object,
 };
+

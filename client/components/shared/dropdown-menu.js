@@ -15,27 +15,21 @@ import {
 } from '../../store';
 import { makeStyles } from '@material-ui/core';
 
-
 const useStyles = makeStyles({
-    customWidth: {
-        '& div': {
-            // this is just an example, you can use vw, etc.
-            width: '350px',
-        }
-    }
+  customWidth: {
+    '& div': {
+      // this is just an example, you can use vw, etc.
+      width: '350px',
+    },
+  },
 });
 
-const DropdownMenu = ({
-  rowId,
-  user,
-  deleteUserActivity,
-}) => {
-
+const DropdownMenu = ({ rowId, user, deleteUserActivity }) => {
   const [deleted, setDeleted] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const downloadMenuClasses = useDownloadMenuStyles();
-  const buttonStyles = useGithubBtnStyles()
+  const buttonStyles = useGithubBtnStyles();
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -71,23 +65,14 @@ const DropdownMenu = ({
         keepMounted
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
-        onClose={() => handleClose()}
       >
-        <MenuItem onClick={() => deleteUserActivity(rowId, user.id)}>
+        <MenuItem
+          onClick={() => {
+            deleteUserActivity(rowId, user.id);
+            setAnchorEl(null);
+          }}
+        >
           Delete
-          {/* <Button
-            className={buttonStyles.button}
-            id="delete-activity-button"
-            variant="contained"
-            // width="100px"
-            // style={{
-            //   fontSize: '1em',
-            //   width: '40px',
-            //   padding: '2px',
-            // }}
-          >
-            delete
-          </Button> */}
         </MenuItem>
       </Menu>
     </div>

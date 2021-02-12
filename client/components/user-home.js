@@ -38,12 +38,6 @@ class UserHome extends React.Component {
     this.setState({ tableDataLoaded: true });
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if ((this.props.activity.currentUser !== prevProps.activity.currentUser) || (this.props.chartData.leaderboard !== prevProps.chartData.leaderboard)) {
-
-  //   }
-  // }
-
   render() {
     return (
       <div>
@@ -54,7 +48,7 @@ class UserHome extends React.Component {
             <div className="row-container">
               {this.state.tableDataLoaded &&
               Object.keys(this.props.tableData.activityHistory).length ? (
-                <ActivityNavTabs />
+                <ActivityNavTabs activityHistoryData={this.props.tableData.activityHistory} />
               ) : null}
               {this.state.chartDataLoaded &&
               this.props.chartData.leaderboard.length ? (
@@ -76,7 +70,7 @@ class UserHome extends React.Component {
 
 const mapState = state => {
   return {
-    user: state.user.user,
+    user: state.user,
     activity: {
       currentUser: state.activity.currentUser,
       allUsers: state.activity.allUsers,
@@ -93,7 +87,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    async loadInitialData() {
+    async loadInitialData(userId) {
+      // await dispatch(me());
       await dispatch(getActivityForAllUsers());
       await dispatch(getActivityForCurrentUser(userId));
     },

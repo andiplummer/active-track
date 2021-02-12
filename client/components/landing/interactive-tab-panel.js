@@ -15,9 +15,8 @@ import {
 
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
+  const { children, value, index, activity, ...other } = props;
+  return ( 
     <div
       role="tabpanel"
       hidden={value !== index}
@@ -78,7 +77,7 @@ function ActivityNavTabs(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  console.log('props', props)
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -101,7 +100,7 @@ function ActivityNavTabs(props) {
       </TabPanel>
       <TabPanel value={value} index={1}>
         {
-          // Object.keys(props.activity.tableData.activityHistory).length ? <ActivityHistoryTable /> : null
+          props.tableData.activityHistory.length ? <ActivityHistoryTable activityHistoryData={props.activityHistoryData} /> : null
         }
       </TabPanel>
       <TabPanel value={value} index={2}>
@@ -128,22 +127,22 @@ const mapState = state => {
   };
 };
 
-// const mapDispatch = dispatch => {
-//   return {
-//     async loadInitialData(userId) {
-//       await dispatch(getActivityForCurrentUser(userId));
-//       await dispatch(getActivityForAllUsers());
-//     },
-//     async loadCurrentUserActivityData(userId) {
-//       await dispatch(getActivityForCurrentUser(userId));
-//     },
-//     async loadAllUserActivityData() {
-//       await dispatch(getActivityForAllUsers());
-//     },
-//     async loadChallengeLeaderboardData(data) {
-//       await dispatch(getChallengeLeaderboardData(data))
-//     }
-//   };
-// };
+const mapDispatch = dispatch => {
+  return {
+    async loadInitialData(userId) {
+      await dispatch(getActivityForCurrentUser(userId));
+      await dispatch(getActivityForAllUsers());
+    },
+    async loadCurrentUserActivityData(userId) {
+      await dispatch(getActivityForCurrentUser(userId));
+    },
+    async loadAllUserActivityData() {
+      await dispatch(getActivityForAllUsers());
+    },
+    async loadChallengeLeaderboardData(data) {
+      await dispatch(getChallengeLeaderboardData(data))
+    }
+  };
+};
 
 export default connect(mapState)(ActivityNavTabs);

@@ -22,7 +22,7 @@ export const gotActivityForAllUsers = data => ({
 })
 
 export const addedActivityData = data => ({
-  type: ADDED_USER_ACTIVITY,
+  type: ADDED_ACTIVITY,
   data,
 });
 

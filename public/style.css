@@ -33,7 +33,6 @@ body {
   background-color: #fdf8f5;
   /* background-color: #1f2849; */
   width: 100%;
-
 }
 
 .active-style {
@@ -163,12 +162,12 @@ body {
 #footer-container h6 {
   color: white;
   font-size: 1.1em;
-  font-family: "mom-cake-thin";
+  font-family: 'mom-cake-thin';
 }
 
 #footer-container a {
   color: white;
-  font-family: "sofia-pro-regular";
+  font-family: 'sofia-pro-regular';
   font-size: 0.8em;
   padding-bottom: 5px;
 }
@@ -306,7 +305,7 @@ body {
 }
 
 .leaderboard h1 {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   text-align: left;
   color: #a0a0a0;
   margin-top: 10px;
@@ -314,7 +313,6 @@ body {
   text-transform: capitalize;
   font-size: 0.9em;
   margin-left: 15%;
-
 }
 
 /* ///////// LANDING PAGE PERFORMANCE CHART - DESKTOP ///////// */
@@ -443,11 +441,14 @@ body {
 
 /* ///////// ACTIVIY LOG TABLE - DESKTOP ///////// */
 
+.activity-history-page-container {
+  margin-top: 30px;
+}
+
 .table-container {
   width: 90%;
   margin-left: 5%;
   margin-bottom: 100px;
-  margin-top: 20px;
 }
 
 .table-container .distance-column {
@@ -491,8 +492,7 @@ th {
   align-items: center;
 }
 
-td,
-th {
+td {
   height: 40px;
   text-align: left;
   border: transparent;
@@ -579,6 +579,7 @@ table .action-column-header {
   display: flex;
   justify-content: column;
   align-items: flex-end;
+  z-index: 1500;
 }
 
 .MuiButton-text {
@@ -597,7 +598,7 @@ table .action-column-header {
 
   .login-container {
     background-color: #303c6c;
-    font-family: "mom-cake-thin";
+    font-family: 'mom-cake-thin';
   }
 
   .login-container .active-style {
@@ -633,7 +634,7 @@ table .action-column-header {
 
   .login-container button {
     width: 300px;
-    font-family: "mom-cake-thin";
+    font-family: 'mom-cake-thin';
   }
 
   .login-error-response {
@@ -806,7 +807,7 @@ table .action-column-header {
 
   .input-container #distance-input {
     width: 100%;
-  } 
+  }
 
   .add-activity-container .button-container {
     width: 90%;
@@ -817,7 +818,7 @@ table .action-column-header {
   .MuiButton-label {
     font-family: 'sofia-pro-regular';
     font-size: 0.8em;
-    width: 100%
+    width: 100%;
   }
 
   .MuiFormControl-root .MuiTextField-root {
