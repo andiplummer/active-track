@@ -3,25 +3,28 @@ import { connect } from 'react-redux';
 import { BarChart } from 'react-chartkick';
 import 'chart.js';
 import { formatDate, getTodaysDate } from '../../../utils/dateTimeUtils'
+import {
+  getActivityForCurrentUser,
+  deleteActivity,
+  getActivityHistoryTableData,
+} from '../../store';
 
 
-const Leaderboard = ({ chartData }) => {
+const Leaderboard = (props) => {
   const [isLoading, setIsLoading] = useState(false)
   const currentMonth = formatDate(getTodaysDate(), 'MMMM')
 
   return (
     <div className="leaderboard">
       <div className="header">
-        <h1>{currentMonth.toUpperCase()} LEADERBOARD</h1>
+        <h1>LEADERBOARD</h1>
       </div>
       {
-        Object.keys(chartData.leaderboard).length ? 
         <BarChart
-          data={chartData.leaderboard}
+          data={props.chartData.leaderboard}
           colors={['#F4976C', '#E8CEBF', '#89b1cc', '#cc89a2']}
-          height={`${75 * chartData.leaderboard.length}px`}
+          height={`${75 * props.chartData.leaderboard.length}px`}
         />
-      : 'no data'
       }
      
     </div>
@@ -42,4 +45,18 @@ const mapState = state => {
   };
 };
 
-export default connect(mapState)(Leaderboard);
+const mapDispatch = dispatch => {
+  return {
+    async loadInitialData(userId) {
+      await dispatch(getActivityForCurrentUser(userId));
+    },
+    async deleteUserActivity(id, userId) {
+      await dispatch(deleteActivity(id, userId));
+    },
+    async loadActivityHistoryTableData(data) {
+      await dispatch(getActivityHistoryTableData(data));
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(Leaderboard);

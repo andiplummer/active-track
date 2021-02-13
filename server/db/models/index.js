@@ -1,10 +1,11 @@
 const User = require('./user')
-const Activity = require('./activity')
+const ActivityEntry = require('./activity-entry')
+const ActivityType = require('./activity-type')
 
-// User.belongsToMany(Activity, { through: 'userId' });
-User.hasMany(Activity)
-Activity.belongsTo(User)
-// User.belongsTo(Activity);
+User.hasMany(ActivityEntry)
+ActivityEntry.belongsTo(User)
+ActivityEntry.belongsTo(ActivityType)
+
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -20,5 +21,6 @@ Activity.belongsTo(User)
  */
 module.exports = {
   User,
-  Activity
+  ActivityEntry,
+  ActivityType
 }

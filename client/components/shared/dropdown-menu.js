@@ -65,6 +65,7 @@ const DropdownMenu = ({ rowId, user, deleteUserActivity }) => {
         keepMounted
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
+        onClick={handleClose}
       >
         <MenuItem
           onClick={() => {

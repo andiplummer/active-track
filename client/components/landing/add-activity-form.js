@@ -1,34 +1,44 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getActivityForCurrentUser, addActivityData, getActivityHistoryTableData } from '../store';
+import {
+  getActivityForCurrentUser,
+  addActivityData,
+  getActivityHistoryTableData,
+} from '../../store';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { formatDate, getTodaysDate, currentDateTimeForCalDatePicker } from '../../utils/dateTimeUtils';
+import {
+  formatDate,
+  getTodaysDate,
+  currentDateTimeForCalDatePicker,
+} from '../../../utils/dateTimeUtils';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+import { createMuiTheme } from "@material-ui/core";
 
 class RecordActivityForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.getDefaultState()
+    this.state = this.getDefaultState();
     this.onUpdateDistance = this.onUpdateDistance.bind(this);
     this.onUpdateDate = this.onUpdateDate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.clearForm = this.clearForm.bind(this);
     this.setSubmitBtnState = this.setSubmitBtnState.bind(this);
     this.getDefaultState = this.getDefaultState.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this)
   }
 
   getDefaultState() {
     return {
-      dateAndTime: currentDateTimeForCalDatePicker(),
+      // dateAndTime: currentDateTimeForCalDatePicker(),
       distance: '',
       date: getTodaysDate('YYYY-MM-DD'),
-      time: getTodaysDate('LT'),
+      // time: new Date(),
       distanceErrorText: '',
       dateErrorText: '',
       isDisabled: true,
       success: false,
-      chartData: this.props.chartData
+      chartData: this.props.chartData,
     };
   }
 
@@ -49,6 +59,18 @@ class RecordActivityForm extends React.Component {
     );
   }
 
+  handleDateChange(event) {
+    this.setState({
+      date: formatDate(event.target.value, 'YYYY-MM-DD'),
+    });
+  }
+
+  handleTimeChange(event) {
+    this.setState({
+      time: event.target.value,
+    });
+  }
+
   onUpdateDistance(event) {
     const distanceStr = Number(String(Number(event.target.value).toFixed(2)));
     this.setState(
@@ -63,9 +85,9 @@ class RecordActivityForm extends React.Component {
     if (
       this.state.distance === '' ||
       !this.state.distance ||
-      !this.state.dateAndTime ||
-      !this.state.date ||
-      !this.state.time
+      // !this.state.dateAndTime ||
+      !this.state.date
+      // !this.state.time
     ) {
       this.setState({ isDisabled: true });
     } else {
@@ -75,17 +97,25 @@ class RecordActivityForm extends React.Component {
 
   async handleSubmit() {
     try {
+      // await this.props.addNewActivity(this.props.user.id, {
+      //   date: formatDate(this.state.dateAndTime, 'YYYY-MM-DD'),
+      //   time: formatDate(this.state.dateAndTime, 'LT'),
+      //   distance: this.state.distance,
+      // });
+
       await this.props.addNewActivity(this.props.user.id, {
-        date: formatDate(this.state.dateAndTime, 'YYYY-MM-DD'),
-        time: formatDate(this.state.dateAndTime, 'LT'),
+        date: formatDate(this.state.date, 'YYYY-MM-DD'),
+        time: formatDate(new Date(), 'LT'),
         distance: this.state.distance,
       });
 
-      await this.props.updateActivityHistoryTable(this.props.workouts)
-      
-      this.setState({ success: !this.state.success }, () => setTimeout(() => {
-        this.setState(this.getDefaultState())
-      }, 1200))
+      await this.props.updateActivityHistoryTable(this.props.workouts);
+
+      this.setState({ success: !this.state.success }, () =>
+        setTimeout(() => {
+          this.setState(this.getDefaultState());
+        }, 900)
+      );
     } catch (error) {
       console.log(error);
       // inline error message with button to try again or contact support
@@ -101,9 +131,9 @@ class RecordActivityForm extends React.Component {
               required
               id="datetime-local"
               label="Date"
-              type="datetime-local"
-              defaultValue={this.state.dateAndTime}
-              onChange={this.onUpdateDate}
+              type="date"
+              defaultValue={this.state.date}
+              onChange={this.handleDateChange}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -112,12 +142,28 @@ class RecordActivityForm extends React.Component {
               }}
             />
           </form>
+          {/* <form className="time-input-container">
+            <TextField
+              id="time"
+              label="Time"
+              type="time"
+              value={this.state.time}
+              onChange={this.handleTimeChange}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{
+                style: {fontSize: 14} 
+              }}
+            />
+          </form> */}
 
           <form className="input-container">
             <TextField
               required
               id="distance-input"
               label="Distance"
+              orientation="portrait"
               value={this.state.distance ? this.state.distance : ''}
               onChange={this.onUpdateDistance}
               type="number"
@@ -144,7 +190,7 @@ class RecordActivityForm extends React.Component {
                 : '#303c6c',
               color: this.state.isDisabled ? '#adadad' : 'white',
               height: '50px',
-              fontSize: '1em',
+              fontSize: '0.9em',
               padding: '10px',
               width: '100%',
             }}
@@ -183,8 +229,8 @@ const mapDispatch = dispatch => {
       await dispatch(addActivityData(userId, body));
     },
     async updateActivityHistoryTable(data) {
-      await dispatch(getActivityHistoryTableData(data))
-    }
+      await dispatch(getActivityHistoryTableData(data));
+    },
   };
 };
 

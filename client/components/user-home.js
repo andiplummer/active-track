@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   Navbar,
-  HeroStats,
   Chart,
   RecordActivityForm,
   FadeInAnimation,
@@ -14,28 +13,32 @@ import {
   getActivityForAllUsers,
   getChallengeLeaderboardData,
   getActivityHistoryTableData,
+  getProgressChartData
 } from '../store';
+import { getCurrentMonth } from '../../utils/dateTimeUtils';
 
 class UserHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       initialLoadComplete: false,
-      chartDataLoaded: false,
-      tableDataLoaded: false,
+      leaderboardLoaded: false,
+      activityHistoryLoaded: false,
+      progressChartLoaded: false,
     };
   }
 
   async componentDidMount() {
-    console.log('this.props', this.props)
     await this.props.loadInitialData(this.props.user.id);
     this.setState({ initialLoadComplete: true });
     await this.props.loadChallengeLeaderboardData(this.props.activity.allUsers);
-    this.setState({ chartDataLoaded: true });
+    this.setState({ leaderboardLoaded: true });
     await this.props.loadActivityHistoryTableData(
       this.props.activity.currentUser
     );
-    this.setState({ tableDataLoaded: true });
+    this.setState({ activityHistoryLoaded: true });
+    await this.props.loadProgressChartData(this.props.user.id)
+    this.setState({ progressChartLoaded: true })
   }
 
   render() {
@@ -46,22 +49,15 @@ class UserHome extends React.Component {
           <FadeInAnimation duration={2000}>
             <RecordActivityForm />
             <div className="row-container">
-              {this.state.tableDataLoaded &&
-              Object.keys(this.props.tableData.activityHistory).length ? (
-                <ActivityNavTabs activityHistoryData={this.props.tableData.activityHistory} />
-              ) : null}
-              {this.state.chartDataLoaded &&
+                <ActivityNavTabs />
+              {this.state.leaderboardLoaded &&
               this.props.chartData.leaderboard.length ? (
-                <Leaderboard
-                // leaderboardData={this.props.chartData.leaderboard}
-                />
+                <Leaderboard />
               ) : (
                 'no data'
               )}
             </div>
           </FadeInAnimation>
-          {/* <HeroStats userWorkouts={this.props.workouts} /> */}
-          {/* {this.state.isLoading === false ? <Chart /> : null} */}
         </div>
       </div>
     );
@@ -88,13 +84,9 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     async loadInitialData(userId) {
-      // await dispatch(me());
       await dispatch(getActivityForAllUsers());
       await dispatch(getActivityForCurrentUser(userId));
     },
-    // async loadCurrentUserActivityData(userId) {
-    //   await dispatch(getActivityForCurrentUser(userId));
-    // },
     async loadAllUserActivityData() {
       await dispatch(getActivityForAllUsers());
     },
@@ -104,6 +96,9 @@ const mapDispatch = dispatch => {
     async loadActivityHistoryTableData(data) {
       await dispatch(getActivityHistoryTableData(data));
     },
+    async loadProgressChartData(userId) {
+      await dispatch(getProgressChartData(userId))
+    }
   };
 };
 

@@ -7,16 +7,14 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { formatDate, getTodaysDate } from '../../../utils/dateTimeUtils'
-import {
-  FadeInAnimation,
-  ActivityHistoryTable
-} from '../index';
-
+import { formatDate, getTodaysDate } from '../../../utils/dateTimeUtils';
+import { FadeInAnimation, ActivityHistoryTable, Chart } from '../index';
+import { LineChart } from 'react-chartkick';
+import 'chart.js';
 
 function TabPanel(props) {
   const { children, value, index, activity, ...other } = props;
-  return ( 
+  return (
     <div
       role="tabpanel"
       hidden={value !== index}
@@ -50,7 +48,7 @@ function LinkTab(props) {
   return (
     <Tab
       component="a"
-      onClick={(event) => {
+      onClick={event => {
         event.preventDefault();
       }}
       {...props}
@@ -72,12 +70,12 @@ const useStyles = makeStyles(theme => ({
 function ActivityNavTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const currentMonth = formatDate(getTodaysDate(), 'MMMM')
+  const currentMonth = formatDate(getTodaysDate(), 'MMMM');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  console.log('props', props)
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -92,19 +90,19 @@ function ActivityNavTabs(props) {
         >
           <Tab label={`${currentMonth} Progress`} {...a11yProps(0)} />
           <Tab label="My Activity" {...a11yProps(1)} />
-          <Tab label="Challenge History" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        Item One
+        {props.chartData.monthlyPerformance.length ? (
+          <Chart chartData={props.chartData.monthlyPerformance} />
+        ) : null}
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        {
-          props.tableData.activityHistory.length ? <ActivityHistoryTable activityHistoryData={props.activityHistoryData} /> : null
-        }
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
+      <TabPanel value={value} index={1} style={{padding: '0px'}}>
+        {props.tableData.activityHistory.length ? (
+          <ActivityHistoryTable
+            activityHistoryData={props.activityHistoryData}
+          />
+        ) : null}
       </TabPanel>
     </div>
   );
@@ -115,7 +113,7 @@ const mapState = state => {
     user: state.user,
     activity: {
       currentUser: state.activity.currentUser,
-      allUsers: state.activity.allUsers
+      allUsers: state.activity.allUsers,
     },
     tableData: {
       activityHistory: state.activity.tableData.activityHistory,
@@ -123,7 +121,7 @@ const mapState = state => {
     chartData: {
       leaderboard: state.activity.chartData.leaderboard,
       monthlyPerformance: state.activity.chartData.monthlyPerformance,
-    }
+    },
   };
 };
 
@@ -140,9 +138,9 @@ const mapDispatch = dispatch => {
       await dispatch(getActivityForAllUsers());
     },
     async loadChallengeLeaderboardData(data) {
-      await dispatch(getChallengeLeaderboardData(data))
-    }
+      await dispatch(getChallengeLeaderboardData(data));
+    },
   };
 };
 
-export default connect(mapState)(ActivityNavTabs);
+export default connect(mapState, mapDispatch)(ActivityNavTabs);

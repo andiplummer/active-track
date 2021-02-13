@@ -4,8 +4,8 @@ const getCurrentTime = () => moment().format('LT');
 
 const getCurrentYear = () => moment().year();
 
-const getCurrentMonth = (outputFormat) => {
-  return moment().format(outputFormat)
+const getCurrentMonth = () => {
+  return formatDate(getTodaysDate(), 'MM');
 }
 
 const getCurrentWeekOfYear = () => moment().week();

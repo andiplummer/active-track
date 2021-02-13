@@ -1,26 +1,35 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Activity} = require('../server/db/models')
+const {User, ActivityEntry, ActivityType} = require('../server/db/models')
 
 async function seed() {
-  await db.sync({force: true})
+  // await db.sync({force: true})
+  await db.sync()
   console.log('db synced!')
 
-  await Promise.all([
-    User.create({firstName: 'Andi', lastName: 'Plummer', email: 'andi@gmail.com', password: 'newpassword'}),
-    User.create({firstName: 'Jim', lastName: 'Plummer', email: 'jim@gmail.com', password: 'newpassword'}),
-    // User.create({firstName: 'Sue', lastName: 'Plummer', email: 'sue@gmail.com', password: '123'}),
-    // User.create({firstName: 'Jenny', lastName: 'Plummer', email: 'jenny@gmail.com', password: '123'})
-  ])
+  // await Promise.all([
+  //   User.create({firstName: 'Andi', lastName: 'Plummer', email: 'andi@gmail.com', password: 'newpassword'}),
+  //   User.create({firstName: 'Jim', lastName: 'Plummer', email: 'jim@gmail.com', password: 'newpassword'}),
+  //   // User.create({firstName: 'Sue', lastName: 'Plummer', email: 'sue@gmail.com', password: '123'}),
+  //   // User.create({firstName: 'Jenny', lastName: 'Plummer', email: 'jenny@gmail.com', password: '123'})
+  // ])
+
+  // await Promise.all([
+  //   ActivityType.create({name: 'run'}),
+  //   ActivityType.create({name: 'walk'}),
+  // ])
 
   await Promise.all([
-    Activity.create({date: '2021-02-01', distance: 3.2, userId: 1 }),
-    Activity.create({date: '2021-02-02', distance: 5.17, userId: 1 }),
-    Activity.create({date: '2021-02-03', distance: 4.1, userId: 1 }),
-    Activity.create({date: '2021-02-04', distance: 2.8, userId: 1 }),
-    Activity.create({date: '2021-02-05', distance: 3.7, userId: 1 }),
-    Activity.create({date: '2021-02-06', distance: 5.3, userId: 1 }),
+    ActivityEntry.create({date: '2021-02-01', distance: 3.2, userId: 1, activityTypeId: 1 }),
+    ActivityEntry.create({date: '2021-02-02', distance: 5.17, userId: 1, activityTypeId: 2 }),
+    ActivityEntry.create({date: '2021-02-03', distance: 4.1, userId: 1 }),
+    ActivityEntry.create({date: '2021-02-04', distance: 2.8, userId: 1 }),
+    ActivityEntry.create({date: '2021-02-05', distance: 3.7, userId: 1 }),
+    ActivityEntry.create({date: '2021-02-06', distance: 5.3, userId: 1 }),
+    ActivityEntry.create({date: '2021-02-04', distance: 2.8, userId: 2 }),
+    ActivityEntry.create({date: '2021-02-05', distance: 3.7, userId: 2 }),
+    ActivityEntry.create({date: '2021-02-06', distance: 5.3, userId: 2 }),
   ])
 
   // await Promise.all([

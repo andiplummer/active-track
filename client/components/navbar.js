@@ -19,9 +19,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       </div>
     </FadeInAnimation>
     
-    <Link to="/activity-log" className="nav-link">
-      Activity Log
-    </Link>
+    {/* <Link to="/account" className="nav-link">
+      Account
+    </Link> */}
 
     <div className="logout-container">
       <a className="logout-link" href="#" onClick={handleClick}>

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Activity = db.define('activity', {
+const ActivityEntry = db.define('activityEntry', {
   date: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -17,6 +17,16 @@ const Activity = db.define('activity', {
     allowNull: false,
     unique: false
   },
+  totalCalories: {
+    type: Sequelize.FLOAT,
+    allowNull: true,
+    unique: false,
+  },
+  activeCalories: {
+    type: Sequelize.FLOAT,
+    allowNull: true,
+    unique: false,
+  }
 })
 
-module.exports = Activity
+module.exports = ActivityEntry

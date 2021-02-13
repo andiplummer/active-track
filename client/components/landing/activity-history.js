@@ -35,30 +35,30 @@ const ActivityHistoryTable = props => {
     <div className="activity-history-page-container">
       <div className="table-container">
         {props.tableData.activityHistory.length ? (
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} style={{width: '100%', margin: '0px'}}>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell align="left" className="date-column-header">
+                  <TableCell align="left" className="date-column-header" style={{paddingLeft: '5px'}}>
                     <div className="date-header">
                       <span>Date</span>
-                      {sortByDate ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                      {sortByDate ? <ExpandLessIcon className="sort-icon" /> : <ExpandMoreIcon className="sort-icon" />}
                     </div>
                   </TableCell>
-                  <TableCell align="left" className="distance-column-header">
+                  <TableCell align="left" className="distance-column-header" style={{paddingLeft: '5px'}}>
                     <div className="distance-header">
                       <span>Distance</span>
-                      {sortByDistance ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                      {sortByDistance ? <ExpandLessIcon className="sort-icon" /> : <ExpandMoreIcon className="sort-icon" />}
                     </div>
                   </TableCell>
-                  <TableCell align="right" className="action-column-header">
+                  <TableCell align="right" className="action-column-header" style={{paddingRight: '5px'}}>
                     {' '}
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {props.tableData.activityHistory.map(row => (
-                  <TableRow id={row.id}>
+                  <TableRow key={row.id}>
                     <TableCell align="left" className="date-column">
                       {
                         <div className="column-detail-container">
