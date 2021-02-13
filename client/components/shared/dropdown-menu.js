@@ -9,9 +9,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
 import {
-  getUserActivityData,
   deleteActivity,
-  updateActivityHistoryTable,
 } from '../../store';
 import { makeStyles } from '@material-ui/core';
 
@@ -90,14 +88,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    async loadInitialData(userId) {
-      await dispatch(getUserActivityData(userId));
-    },
     async deleteUserActivity(id, userId) {
       await dispatch(deleteActivity(id, userId));
-    },
-    async updateActivityHistoryTable(data) {
-      await dispatch(updateActivityHistoryTable(data));
     },
   };
 };
