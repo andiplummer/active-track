@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, ActivityEntry, ActivityType} = require('../server/db/models')
+const {User, ActivityEntry} = require('../server/db/models')
 
 async function seed() {
   // await db.sync({force: true})
@@ -15,10 +15,10 @@ async function seed() {
   //   // User.create({firstName: 'Jenny', lastName: 'Plummer', email: 'jenny@gmail.com', password: '123'})
   // ])
 
-  await Promise.all([
-    ActivityType.create({name: 'run'}),
-    ActivityType.create({name: 'walk'}),
-  ])
+  // await Promise.all([
+  //   ActivityType.create({name: 'run'}),
+  //   ActivityType.create({name: 'walk'}),
+  // ])
 
   await Promise.all([
     ActivityEntry.create({date: '2021-01-01', distance: 3.09, userId: 1 }),

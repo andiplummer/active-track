@@ -1,10 +1,8 @@
 const User = require('./user')
 const ActivityEntry = require('./activity-entry')
-const ActivityType = require('./activity-type')
 
 User.hasMany(ActivityEntry)
 ActivityEntry.belongsTo(User)
-ActivityEntry.belongsTo(ActivityType)
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -22,5 +20,4 @@ ActivityEntry.belongsTo(ActivityType)
 module.exports = {
   User,
   ActivityEntry,
-  ActivityType
 }
