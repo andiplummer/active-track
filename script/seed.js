@@ -15,10 +15,10 @@ async function seed() {
   //   // User.create({firstName: 'Jenny', lastName: 'Plummer', email: 'jenny@gmail.com', password: '123'})
   // ])
 
-  // await Promise.all([
-  //   ActivityType.create({name: 'run'}),
-  //   ActivityType.create({name: 'walk'}),
-  // ])
+  await Promise.all([
+    ActivityType.create({name: 'run'}),
+    ActivityType.create({name: 'walk'}),
+  ])
 
   await Promise.all([
     ActivityEntry.create({date: '2021-01-01', distance: 3.09, userId: 1 }),
