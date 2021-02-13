@@ -32,7 +32,7 @@ class RecordActivityForm extends React.Component {
     return {
       // dateAndTime: currentDateTimeForCalDatePicker(),
       distance: '',
-      date: getTodaysDate('YYYY-MM-DD'),
+      date: getTodaysDate(),
       // time: new Date(),
       distanceErrorText: '',
       dateErrorText: '',
@@ -53,7 +53,6 @@ class RecordActivityForm extends React.Component {
       {
         dateAndTime: inputDateAndTime,
         date: formatDate(inputDateAndTime, 'YYYY-MM-DD'),
-        time: formatDate(inputDateAndTime, 'LT'),
       },
       () => this.setSubmitBtnState()
     );
@@ -105,7 +104,7 @@ class RecordActivityForm extends React.Component {
 
       await this.props.addNewActivity(this.props.user.id, {
         date: formatDate(this.state.date, 'YYYY-MM-DD'),
-        time: formatDate(new Date(), 'LT'),
+        // time: formatDate(new Date(), 'LT'),
         distance: this.state.distance,
       });
 
@@ -132,8 +131,8 @@ class RecordActivityForm extends React.Component {
               id="datetime-local"
               label="Date"
               type="date"
-              defaultValue={this.state.date}
-              onChange={this.handleDateChange}
+              value={this.state.date}
+              onChange={this.onUpdateDate}
               InputLabelProps={{
                 shrink: true,
               }}

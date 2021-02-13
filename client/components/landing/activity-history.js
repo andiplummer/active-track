@@ -65,7 +65,7 @@ const ActivityHistoryTable = props => {
                           <span className="column-value">
                             {formatDate(row.date, 'MM/DD/YYYY')}
                           </span>
-                          <span className="column-detail">{row.time}</span>
+                          {/* <span className="column-detail">{row.time}</span> */}
                         </div>
                       }
                     </TableCell>
