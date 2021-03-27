@@ -1,19 +1,34 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {
-  Navbar,
-} from './index';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Navbar, ProfileImage } from '../index';
 
-const Account = (props) => {
+const Profile = props => {
   return (
     <div>
       <Navbar />
-      <div>
-        <h1>Account</h1>
+      <div className="profile-container">
+        <div className="profile-header">
+          <ProfileImage />
+          {/* <span>Welcome, {props.user.firstName}</span> */}
+        </div>
+        <div className="profile-stats">
+            <div className="stat-card">
+              <span className="miles">100.2</span>
+              <span className="time">This Year</span>
+            </div>
+            <div className="stat-card">
+              <span className="miles">35.7</span>
+              <span className="time">This Month</span>
+            </div>
+            <div className="stat-card">
+              <span className="miles">12.4</span>
+              <span className="time">This Week</span>
+            </div>
+          </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const mapState = state => {
   return {
@@ -50,4 +65,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(mapState, mapDispatch)(Account)
+export default connect(mapState, mapDispatch)(Profile);

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { logout } from '../store';
 // import { clearState } from '../store';
 import { FadeInAnimation } from './index';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div className="nav">
@@ -24,6 +25,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
     </Link> */}
 
     <div className="logout-container">
+      {/* <MenuIcon /> */}
       <a className="logout-link" href="#" onClick={handleClick}>
         Logout
       </a>

@@ -17,7 +17,7 @@ const Leaderboard = (props) => {
   return (
     <div className="leaderboard">
       <div className="header">
-        <h1>LEADERBOARD</h1>
+        <h1>{currentMonth.toUpperCase()} LEADERBOARD</h1>
       </div>
       {
         <BarChart

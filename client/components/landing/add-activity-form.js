@@ -141,21 +141,6 @@ class RecordActivityForm extends React.Component {
               }}
             />
           </form>
-          {/* <form className="time-input-container">
-            <TextField
-              id="time"
-              label="Time"
-              type="time"
-              value={this.state.time}
-              onChange={this.handleTimeChange}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{
-                style: {fontSize: 14} 
-              }}
-            />
-          </form> */}
 
           <form className="input-container">
             <TextField
@@ -192,6 +177,8 @@ class RecordActivityForm extends React.Component {
               fontSize: '0.9em',
               padding: '10px',
               width: '100%',
+              margin: '0px',
+              textAlign: 'center',
             }}
           >
             {this.state.success ? <DoneOutlineIcon /> : 'Record Activity'}

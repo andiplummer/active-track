@@ -1,8 +1,10 @@
 const User = require('./user')
 const ActivityEntry = require('./activity-entry')
+const Avatar = require('./avatar')
 
 User.hasMany(ActivityEntry)
 ActivityEntry.belongsTo(User)
+// User.belongsTo(Avatar)
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -20,4 +22,5 @@ ActivityEntry.belongsTo(User)
 module.exports = {
   User,
   ActivityEntry,
+  Avatar
 }

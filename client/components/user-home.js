@@ -7,6 +7,7 @@ import {
   FadeInAnimation,
   ActivityNavTabs,
   Leaderboard,
+  HeroStats
 } from './index';
 import {
   getActivityForCurrentUser,
@@ -45,6 +46,7 @@ class UserHome extends React.Component {
     return (
       <div>
         <Navbar />
+        <HeroStats />
         <div className="user-home-container">
           <FadeInAnimation duration={2000}>
             <RecordActivityForm />

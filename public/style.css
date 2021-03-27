@@ -9,7 +9,7 @@ html {
 * {
   box-sizing: border-box;
   margin: 0px;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   max-width: 100%;
 }
 
@@ -38,13 +38,11 @@ html {
 
 body {
   background-color: #fdf8f5;
-  /* background-color: #1f2849; */
   width: 100%;
 }
 
 .active-style {
-  /* color: #303c6c; */
-  color: white;
+  color: #1f2849;
   font-family: 'mom-cake-bold';
 }
 
@@ -203,9 +201,9 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-left: 2.5%;
-  padding-right: 2.5%;
-  background-color: #1f2849;
+  padding-left: 1%;
+  padding-right: 1%;
+  background-color: white;
   width: 100%;
   height: 75px;
 }
@@ -245,7 +243,7 @@ body {
 }
 
 .nav-link {
-  color: white;
+  color: #1f2849;
   font-size: 1.25em;
   text-decoration: none;
   font-size: 1.1em;
@@ -276,7 +274,85 @@ body {
   font-family: 'mom-cake-thin';
 }
 
-/* ///////// LANDING PAGE LEADERBOARD - DESKTOP ///////// */
+/*////////// LANDING PAGE HERO //////////////////////////*/
+
+.landing-hero-container {
+  background-color: #1f2849;
+  color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 125px;
+}
+
+.hero-header {
+  width: 35%;
+  margin-left: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.hero-stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 95%;
+  margin-right: 5%;
+}
+
+.hero-stat-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 25%;
+  height: 90px;
+}
+
+.hero-stat-container h2 {
+  font-family: 'mom-cake-thin';
+  font-size: 1.4em;
+}
+
+.hero-header h1 {
+  font-family: 'mom-cake-thin';
+  font-size: 2em;
+  letter-spacing: 2px;
+}
+
+.vl {
+  border-left: 1px solid #67676e;
+  height: 90px;
+  padding: 7px;
+}
+
+.hero-mile-count {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 90px;
+}
+
+.hero-mile-count h1 {
+  margin-top: 12px;
+  font-family: 'mom-cake-bold';
+  letter-spacing: 3px;
+  font-size: 2.5em;
+}
+
+.hero-mile-count h3 {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 0.65em;
+  margin-top: -10px;
+}
+
+/* ///////// USER HOME CONTAINER - DESKTOP ///////// */
 
 .user-home-container {
   width: 90%;
@@ -303,20 +379,21 @@ body {
   background-color: white;
   padding-right: 2.5%;
   padding-bottom: 20px;
-  height: 500px;
+  min-height: 600px;
 }
 
 .leaderboard .header {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   height: 48px;
 }
 
 .leaderboard h1 {
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  text-align: left;
-  color: #a0a0a0;
+  text-align: center;
+  color: #bebebe;
   margin-top: 10px;
   margin-bottom: 10px;
   text-transform: capitalize;
@@ -477,7 +554,10 @@ body {
   width: 75px;
 }
 
-.MuiButtonBase-root .MuiButton-root .MuiButton-text .MuiPickersToolbarButton-toolbarBtn {
+.MuiButtonBase-root
+  .MuiButton-root
+  .MuiButton-text
+  .MuiPickersToolbarButton-toolbarBtn {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -711,13 +791,13 @@ table .action-column-header {
 
   .nav {
     height: 60px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 5%;
+    padding-right: 2.5%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    /* background-color: white; */
+    background-color: white;
     width: 100%;
   }
 
@@ -744,7 +824,7 @@ table .action-column-header {
   .nav-link {
     width: 120px;
     height: 30px;
-    font-size: 0.75em;
+    font-size: 1em;
   }
 
   .logout-link {
@@ -752,10 +832,187 @@ table .action-column-header {
     width: 75px;
   }
 
+  .user-home-container {
+    width: 95%;
+    margin-left: 2.5%;
+  }
+
   .user-home-container .row-container {
     display: flex;
     flex-direction: column;
     width: 100%;
+  }
+
+  /*////////// LANDING PAGE HERO - MOBILE //////////////////////////*/
+
+  .landing-hero-container {
+    background-color: #1f2849;
+    color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 425px;
+    padding-bottom: 20px;
+  }
+
+  .hero-header {
+    margin-top: 20px;
+    margin-right: 0px;
+    font-size: 0.9em;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 5%;
+    color: white;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .hero-stats {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 90%;
+    margin-left: 5%;
+    height: 400px;
+  }
+
+  .hero-stat-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: 70px;
+  }
+
+  .hero-stat-container h2 {
+    font-family: 'mom-cake-thin';
+    font-size: 1.3em;
+  }
+
+  .vl {
+    display: none;
+  }
+
+  .hl {
+    border-top: 1px solid #67676e;
+    height: 1px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .hero-mile-count {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .hero-mile-count h1 {
+    font-family: 'mom-cake-bold';
+    letter-spacing: 3px;
+    font-size: 2.2em;
+  }
+
+  .hero-mile-count h3 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+      'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 0.6em;
+    height: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .profile-container {
+    height: 100vh;
+    background-color: white;
+  }
+
+  .profile-header {
+    height: 250px;
+    width: 100%;
+    background-color: #fae2d7;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .avatar-container {
+    font-size: 1em;
+    margin-top: 15px;
+    width: 100px;
+    height: 100px;
+  }
+
+  .avatar-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 50%;
+    padding: 0px;
+    margin-top: -10px;
+    margin-left: 20%;
+    /* background-color: white; */
+  }
+
+  .avatar-options span {
+    font-size: 1em;
+  }
+
+  /* .profile-header span {
+    font-size: 1.7em;
+    color: #646464;
+    margin-top: 30px;
+  } */
+
+  .profile-stats {
+    background-color: white;
+    border-radius: 30px;
+    z-index: 200000;
+    margin-top: -75px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 90%;
+    margin-left: 5%;
+    height: 125px;
+    box-shadow: 4px 3px 1px 1px #fafafa;
+    outline: none;
+  }
+
+  .stat-card {
+    width: 80px;
+    height: 80px;
+    background-color: #f5f5f5;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .stat-card .miles {
+    font-family: 'mom-cake-bold';
+    font-size: 1.2em;
+  }
+
+  .stat-card .time {
+    font-family: 'sofia-pro-regular';
+    font-size: 0.7em;
   }
 
   .leaderboard {
@@ -792,12 +1049,15 @@ table .action-column-header {
   .add-activity-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
-    height: 300px;
+    height: 170px;
     background-color: white;
     margin-top: 30px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
     border: 1px solid #e4e4e4;
     border-radius: 5pxrgb (34, 24, 24);
     animation: 'fadeIn ease 20s';
@@ -805,39 +1065,39 @@ table .action-column-header {
 
   .add-new-activity-form-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
     justify-content: flex-start;
-    width: 100%;
-    margin: 0px;
+    align-items: flex-start;
+    width: 90%;
+    margin-left: 5%;
+    padding: 0px;
   }
 
   .date-input-container {
-    width: 100%;
+    width: 60%;
     height: 75px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    margin-top: 15px;
     font-size: 1em;
   }
 
   .date-input-container div {
-    width: 100%;
+    width: 95%;
+    margin: 0px;
   }
 
   .input-container {
-    width: 100%;
+    width: 40%;
     height: 75px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-top: 15px;
     font-size: 1em;
-    margin-bottom: 20px;
-    margin-left: 0px;
+    margin: 0px;
   }
 
   .input-container div {
@@ -850,10 +1110,12 @@ table .action-column-header {
   }
 
   .add-activity-container .button-container {
-    width: 90%;
-    margin-left: 5%;
-    margin-bottom: 5px;
-    height: 100px;
+    width: 95%;
+    margin-left: 2.5%;
+    height: 75px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 
   .MuiButton-label {
@@ -869,7 +1131,7 @@ table .action-column-header {
   .MuiFormControl-root .MuiTextField-root {
     width: 100%;
   }
-  
+
   .MultiTableCell-head {
     height: 40px;
     text-align: left;
@@ -882,7 +1144,7 @@ table .action-column-header {
     justify-content: center;
     align-items: center;
   }
-  
+
   th {
     height: 40px;
     text-align: left;
@@ -895,7 +1157,7 @@ table .action-column-header {
     justify-content: center;
     align-items: center;
   }
-  
+
   td {
     height: 40px;
     text-align: left;
@@ -913,7 +1175,7 @@ table .action-column-header {
     flex-direction: row;
     justify-content: flex-start;
   }
-  
+
   table .distance-header {
     width: 80px;
     font-size: 0.9em;
@@ -922,17 +1184,17 @@ table .action-column-header {
     flex-direction: row;
     justify-content: flex-start;
   }
-  
+
   table .date-column-header {
     width: 15%;
     height: 40px;
   }
-  
+
   table .distance-column-header {
     width: 70%;
     height: 40px;
   }
-  
+
   table .action-column-header {
     width: 2%;
     padding: 0px;
@@ -940,7 +1202,6 @@ table .action-column-header {
 
   table .column-value {
     font-size: 1em;
-
   }
 
   table .column-detail {
@@ -972,6 +1233,75 @@ table .action-column-header {
 
   .logout-container {
     width: 120px;
+  }
+
+  .landing-hero-container {
+    background-color: #1f2849;
+    color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 125px;
+  }
+  
+  .hero-header {
+    width: 35%;
+    margin-left: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  
+  .hero-stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 95%;
+    margin-right: 5%;
+  }
+  
+  .hero-stat-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 25%;
+    height: 90px;
+  }
+  
+  .hero-stat-container h2 {
+    font-family: 'mom-cake-thin';
+    font-size: 1.2em;
+  }
+  
+  .hero-header h1 {
+    font-family: 'mom-cake-thin';
+    font-size: 1.3em;
+    letter-spacing: 2px;
+  }
+  
+  .hero-mile-count {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 90px;
+  }
+  
+  .hero-mile-count h1 {
+    font-family: 'mom-cake-bold';
+    letter-spacing: 3px;
+    font-size: 2em;
+  }
+  
+  .hero-mile-count h3 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+      'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 0.6em;
+    margin-top: -20px;
   }
 
   .perf-chart-section {

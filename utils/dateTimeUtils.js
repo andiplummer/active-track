@@ -4,11 +4,17 @@ const getCurrentTime = () => moment().format('LT');
 
 const getCurrentYear = () => moment().year();
 
-const getCurrentMonth = () => {
-  return formatDate(getTodaysDate(), 'MM');
+const getCurrentMonth = (outputFormat = 'MM') => {
+  return formatDate(getTodaysDate(), outputFormat);
 }
 
 const getCurrentWeekOfYear = () => moment().week();
+
+const getFirstDayOfWeek = (outputFormat = 'DD') => {
+  const date = moment().weekday(0).format('DD')
+  console.log('date',date)
+  return date
+} 
 
 const getWeekOfInputDate = (date, inputFormat) =>
   moment(date, inputFormat).week();
@@ -48,5 +54,6 @@ module.exports = {
   getNumOfDaysInMonth,
   getCurrentTime,
   getTodaysDate,
-  currentDateTimeForCalDatePicker
+  currentDateTimeForCalDatePicker,
+  getFirstDayOfWeek
 };
