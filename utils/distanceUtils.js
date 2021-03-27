@@ -43,7 +43,7 @@ const getWtdMiles = userWorkouts => {
 
   let wtdMiles = 0;
   userWorkouts.forEach(workout => {
-    const workoutWeek = getWeekOfInputDate(workout.dateFrom, 'YYYY-MM-DD');
+    const workoutWeek = getWeekOfInputDate(workout.date, 'YYYY-MM-DD');
 
     if (currentWeekOfYear === workoutWeek) {
       wtdMiles += workout.distance;

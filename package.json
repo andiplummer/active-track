@@ -54,6 +54,7 @@
     "moment-timezone": "^0.5.33",
     "morgan": "^1.9.1",
     "npm": "^7.5.2",
+    "numbro": "^2.3.2",
     "passport": "^0.4.0",
     "passport-google-oauth": "^2.0.0",
     "pg": "^7.9.0",

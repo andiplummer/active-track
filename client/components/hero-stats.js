@@ -9,10 +9,9 @@ import {
 } from '../../utils/distanceUtils';
 
 const HeroStats = props => {
-  // const ytdMiles = getYtdMiles(props.userWorkouts);
-  // const mtdMiles = getMtdMiles(props.userWorkouts);
-  // const wtdMiles = getWtdMiles(props.userWorkouts);
-  // const dailyMileRecord = getDailyMileRecord(props.userWorkouts);
+  const ytdMiles = getYtdMiles(props.activity.currentUser);
+  const mtdMiles = getMtdMiles(props.activity.currentUser);
+  const wtdMiles = getWtdMiles(props.activity.currentUser);
 
   return (
     <div className="landing-hero-container">
@@ -25,7 +24,7 @@ const HeroStats = props => {
           <div className="hero-mile-count">
             <h2>Year to Date</h2>
             <h3>Jan 1, {getCurrentYear()} - Today</h3>
-            <h1>275.12</h1>
+            <h1>{ytdMiles.toFixed(2)}</h1>
           </div>
         </div>
         <div className="hl"></div>
@@ -34,7 +33,7 @@ const HeroStats = props => {
           <div className="hero-mile-count">
             <h2>Month to Date</h2>
             <h3>{getCurrentMonth('MMM')} 1, {getCurrentYear()} - Today</h3>
-            <h1>97.02</h1>
+            <h1>{mtdMiles.toFixed(2)}</h1>
           </div>
         </div>
         <div className="hl"></div>
@@ -43,7 +42,7 @@ const HeroStats = props => {
           <div className="hero-mile-count">
             <h2>Week to Date</h2>
             <h3>{getCurrentMonth('MMM')} {getFirstDayOfWeek()}, {getCurrentYear()} - Today</h3>
-            <h1>7.40</h1>
+            <h1>{wtdMiles.toFixed(2)}</h1>
           </div>
         </div>
       </div>
@@ -52,7 +51,13 @@ const HeroStats = props => {
 };
 
 const mapState = state => {
-  return {};
+  return {
+    user: state.user,
+    activity: {
+      currentUser: state.activity.currentUser,
+      allUsers: state.activity.allUsers,
+    },
+  };
 };
 
 const mapDispatch = dispatch => {
